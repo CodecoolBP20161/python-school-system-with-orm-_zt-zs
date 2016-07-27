@@ -29,10 +29,66 @@ def connect_list():
     return connect_data
 
 
-db = PostgresqlDatabase(connect_list()[0], user=connect_list()[1])
+db = PostgresqlDatabase(connect_list()[0].strip(), user=connect_list()[1].strip())
 
 
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
     class Meta:
         database = db
+
+
+class Applicant(BaseModel):
+    first_name = CharField()
+    last_name = CharField()
+    email = CharField()
+    city = CharField()
+    status = CharField(default="New")
+    # interview = ForeignKeyField(Interview, related_name='applicant')  # applicant related name in Interview model
+
+    def create_app_code():
+        pass
+
+    application_code = PrimaryKeyField(create_app_code())
+
+
+class School(BaseModel):
+    city = CharField()
+    name = "Codecool " + city
+
+
+class City(BaseModel):
+    city = Applicant.city
+    def change_city(self):
+        Applicant.update(case(Applicant.city, (
+        ('Miskolc', 'Miskolc'),
+        ('Budapest', 'Budapest')
+        ('Székesfehérvár', 'Budapest')
+        ('Eger', 'Miskolc')), "Budapest"))
+
+
+class Mentor(BaseModel):
+    first_name = CharField()
+    last_name = CharField()
+    school = ForeignKeyField(School)
+
+
+class InterviewSlot(BaseModel):
+    mentor = ForeignKeyField(Mentor)
+    date = DateTimeField()
+    status = BooleanField(default=True)  # when the timeslot is available, status is True
+
+
+class Interview(BaseModel):
+    applicant = ForeignKeyField(Applicant)
+    details = ForeignKeyField(InterviewSlot)
+    # changes the interview slot's status when booked
+    # InterviewSlot.update(case(InterviewSlot.status, ((True, False),), True))
+
+
+class Question(BaseModel):
+    pass
+
+
+class Answer(BaseModel):
+    pass
