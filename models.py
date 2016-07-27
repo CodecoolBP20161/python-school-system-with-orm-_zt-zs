@@ -1,4 +1,7 @@
 from peewee import *
+import random
+
+
 
 # Configure your database connection here
 # database name = should be your username on your laptop
@@ -38,6 +41,11 @@ class BaseModel(Model):
         database = db
 
 
+class City(BaseModel):
+    all_cities = CharField()
+    cc_cities = CharField()
+
+
 class Applicant(BaseModel):
     first_name = CharField()
     last_name = CharField()
@@ -45,26 +53,17 @@ class Applicant(BaseModel):
     city = CharField()
     status = CharField(default="New")
     # interview = ForeignKeyField(Interview, related_name='applicant')  # applicant related name in Interview model
+    # cc_city =
 
     def create_app_code():
         pass
 
-    application_code = PrimaryKeyField(create_app_code())
+    application_code = create_app_code()
 
 
 class School(BaseModel):
     city = CharField()
     name = "Codecool " + city
-
-
-class City(BaseModel):
-    city = Applicant.city
-    def change_city(self):
-        Applicant.update(case(Applicant.city, (
-        ('Miskolc', 'Miskolc'),
-        ('Budapest', 'Budapest')
-        ('Székesfehérvár', 'Budapest')
-        ('Eger', 'Miskolc')), "Budapest"))
 
 
 class Mentor(BaseModel):
