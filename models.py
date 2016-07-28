@@ -58,6 +58,8 @@ class Applicant(BaseModel):
     status = CharField(default="New")
     # interview = ForeignKeyField(Interview, related_name='applicant')  # applicant related name in Interview model
     school = ForeignKeyField(City, null=True)  # related_name="no_school"
+    application_code = CharField(default=None, null=True, unique=True)
+
 
     def get_school(self):
         no_school_yet = Applicant.select(Applicant.id).where(Applicant.school==None)
@@ -67,14 +69,20 @@ class Applicant(BaseModel):
                 school = City.get(City.all_cities==Applicant.city)
 
 
-    def create_app_code(string_length=4):
+    def create_app_code(self, string_length=4):
         """Returns a random string of length string_length."""
         random = str(uuid.uuid4())  # Convert UUID format to a Python string.
         random = random.upper()  # Make all characters uppercase.
         random = random.replace("-", "")  # Remove the UUID '-'.
-        return random[0:4]  # Return the random string.
+        self.application_code = random[0:4]  # Return the random string.
+        self.save()
 
-    application_code = create_app_code()
+    @classmethod
+    def detect(cls):
+        no_app_code = cls.select().where(cls.application_code==None)
+        for app_inst in no_app_code:
+            app_inst.create_app_code()
+
 
 
 
