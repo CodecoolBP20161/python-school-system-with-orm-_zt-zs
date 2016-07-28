@@ -6,6 +6,7 @@ import uuid
 # Configure your database connection here
 # database name = should be your username on your laptop
 # database user = should be your username on your laptop
+# generating local connect string into a txt file
 
 
 # write connection data to local file
@@ -44,7 +45,6 @@ class City(BaseModel):
     all_cities = CharField()
     cc_cities = CharField()
 
-
 class School(BaseModel):
     location = CharField()
     # name = str('Codecool ' + location)
@@ -57,27 +57,34 @@ class Applicant(BaseModel):
     city = CharField()
     status = CharField(default="New")
     # interview = ForeignKeyField(Interview, related_name='applicant')  # applicant related name in Interview model
-    school = CharField(null=True)
-
+    school = CharField(null=True)  # related_name="no_school"
     application_code = CharField(default=None, null=True, unique=True)
 
-    def get_school(self):
-        self.school = City.get(City.all_cities == self.city).cc_cities
-        self.save()
+    @classmethod
+    def update_school(cls):
+        for i in cls.select().where(cls.school == None):
+            i.school = City.get(City.all_cities == i.city).cc_cities
+            i.save()
+
 
     def create_app_code(self, string_length=4):
         """Returns a random string of length string_length."""
         random = str(uuid.uuid4())  # Convert UUID format to a Python string.
         random = random.upper()  # Make all characters uppercase.
         random = random.replace("-", "")  # Remove the UUID '-'.
-        self.application_code = random[0:4]  # Return the random string.
+        self.application_code = random[0:string_length]  # Return the random string.
+        self.status = "In progress"
         self.save()
 
     @classmethod
     def detect(cls):
-        no_app_code = cls.select().where(cls.application_code is None)
+        no_app_code = cls.select().where(cls.application_code == None)
         for app_inst in no_app_code:
             app_inst.create_app_code()
+
+
+
+
 
 
 class Mentor(BaseModel):
