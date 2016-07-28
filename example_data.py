@@ -32,4 +32,11 @@ tothlaszlo = Applicant.create(first_name="László", last_name="Tóth", email="l
 johndoe = Applicant.create(first_name="John", last_name="Doe", email="thisismyemail@gmail.com", city="Warsaw")
 
 
-print(kovacsbela.email)
+#
+# print(kovacsbela.email)
+#
+# print(kovacsbela.application_code)
+#
+# kovacsbela.create_app_code()
+# Applicant.detect()
+# print(kovacsbela.application_code)
