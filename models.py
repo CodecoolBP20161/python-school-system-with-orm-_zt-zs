@@ -75,7 +75,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def detect(cls):
-        no_app_code = cls.select().where(if cls.application_code is None)
+        no_app_code = cls.select().where(cls.application_code is None)
         for app_inst in no_app_code:
             app_inst.create_app_code()
 
