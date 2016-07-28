@@ -21,7 +21,7 @@ def sub_menu():
           '\nChoose one from the following menu options and press enter.\n'
           'If you wish to exit the program press q.\n'
           '1. New Applicant\n'
-          '2. Assign school to applicant    ')
+          '2. Assign school and application code to applicant')
     choice = input()
     return choice
 if main_menu() == '1':
@@ -30,7 +30,8 @@ if main_menu() == '1':
                              city=input('City: '))
     elif choice == '2':
         Applicant.update_school()
-        print("Schools assigned to applicants.")
+        Applicant.detect()
+        print("Schools and application code assigned to applicant(s).")
     elif sub_menu() == 'q':
         pass
     elif sub_menu() == 'b':
