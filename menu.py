@@ -27,7 +27,7 @@ def sub_menu():
 if main_menu() == '1':
     if sub_menu() == '1':
         Applicant.create(first_name=input('First name: '), last_name=input('Last name: '), email=input('E-mail: '),
-                             city=input('City: '))
+                         city=input('City: '))
     elif choice == '2':
         Applicant.update_school()
         Applicant.detect()
