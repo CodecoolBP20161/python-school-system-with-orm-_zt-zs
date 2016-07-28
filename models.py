@@ -1,6 +1,6 @@
 from peewee import *
 import random
-
+import uuid
 
 
 # Configure your database connection here
@@ -67,8 +67,12 @@ class Applicant(BaseModel):
                 school = City.get(City.all_cities==Applicant.city)
 
 
-    def create_app_code():
-        return "None"
+    def create_app_code(string_length=4):
+        """Returns a random string of length string_length."""
+        random = str(uuid.uuid4())  # Convert UUID format to a Python string.
+        random = random.upper()  # Make all characters uppercase.
+        random = random.replace("-", "")  # Remove the UUID '-'.
+        return random[0:4]  # Return the random string.
 
     application_code = create_app_code()
 
