@@ -45,6 +45,10 @@ class City(BaseModel):
     all_cities = CharField()
     cc_cities = CharField()
 
+class School(BaseModel):
+    location = CharField()
+    # name = str('Codecool ' + location)
+
 
 class Applicant(BaseModel):
     first_name = CharField()
@@ -53,17 +57,23 @@ class Applicant(BaseModel):
     city = CharField()
     status = CharField(default="New")
     # interview = ForeignKeyField(Interview, related_name='applicant')  # applicant related name in Interview model
-    # cc_city =
+    school = ForeignKeyField(City, null=True)  # related_name="no_school"
+
+    def get_school(self):
+        no_school_yet = Applicant.select(Applicant.id).where(Applicant.school==None)
+        print(no_school_yet)
+        if no_school_yet:
+            for applicant in no_school_yet:
+                school = City.get(City.all_cities==Applicant.city)
+
 
     def create_app_code():
-        pass
+        return "None"
 
     application_code = create_app_code()
 
 
-class School(BaseModel):
-    city = CharField()
-    name = "Codecool " + city
+
 
 
 class Mentor(BaseModel):
