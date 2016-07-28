@@ -2,15 +2,13 @@
 
 from models import *
 
-
-
 City.delete()
 School.delete()
 Applicant.delete()
 
-codecool_bp = School.create(location = "Budapest")
-codecool_miskolc = School.create(location = "Miskolc")
-codecool_krakow = School.create(location = "Kraków")
+codecool_bp = School.create(location="Budapest")
+codecool_miskolc = School.create(location="Miskolc")
+codecool_krakow = School.create(location="Kraków")
 
 miskolc = City.create(all_cities="Miskolc", cc_cities="Miskolc")
 budapest = City.create(all_cities="Budapest", cc_cities="Budapest")
@@ -32,6 +30,7 @@ nagynora = Applicant.create(first_name="Nóra", last_name="Nagy", email="nagynor
 matheuszzcyl = Applicant.create(first_name="Matheusz", last_name="Zcyl", email="zmatheusz@gmail.com", city="Kraków")
 tothlaszlo = Applicant.create(first_name="László", last_name="Tóth", email="laci90@gmail.com",  city="Szeged")
 johndoe = Applicant.create(first_name="John", last_name="Doe", email="thisismyemail@gmail.com", city="Warsaw")
+
 
 #
 # print(kovacsbela.email)

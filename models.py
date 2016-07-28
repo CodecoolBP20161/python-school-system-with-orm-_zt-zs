@@ -6,7 +6,6 @@ import uuid
 # Configure your database connection here
 # database name = should be your username on your laptop
 # database user = should be your username on your laptop
-# generating local connect string into a txt file
 
 
 # write connection data to local file
@@ -45,6 +44,7 @@ class City(BaseModel):
     all_cities = CharField()
     cc_cities = CharField()
 
+
 class School(BaseModel):
     location = CharField()
     # name = str('Codecool ' + location)
@@ -57,17 +57,13 @@ class Applicant(BaseModel):
     city = CharField()
     status = CharField(default="New")
     # interview = ForeignKeyField(Interview, related_name='applicant')  # applicant related name in Interview model
-    school = ForeignKeyField(City, null=True)  # related_name="no_school"
+    school = CharField(null=True)
+
     application_code = CharField(default=None, null=True, unique=True)
 
-
     def get_school(self):
-        no_school_yet = Applicant.select(Applicant.id).where(Applicant.school==None)
-        print(no_school_yet)
-        if no_school_yet:
-            for applicant in no_school_yet:
-                school = City.get(City.all_cities==Applicant.city)
-
+        self.school = City.get(City.all_cities == self.city).cc_cities
+        self.save()
 
     def create_app_code(self, string_length=4):
         """Returns a random string of length string_length."""
@@ -79,13 +75,9 @@ class Applicant(BaseModel):
 
     @classmethod
     def detect(cls):
-        no_app_code = cls.select().where(cls.application_code==None)
+        no_app_code = cls.select().where(cls.application_code == None)
         for app_inst in no_app_code:
             app_inst.create_app_code()
-
-
-
-
 
 
 class Mentor(BaseModel):
