@@ -90,3 +90,6 @@ ENV/
 
 # Local txt file for db connection
 local_connect_data.txt
+
+#PyCharm
+.idea
