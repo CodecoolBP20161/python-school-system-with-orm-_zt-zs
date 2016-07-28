@@ -6,7 +6,6 @@ import uuid
 # Configure your database connection here
 # database name = should be your username on your laptop
 # database user = should be your username on your laptop
-# generating local connect string into a txt file
 
 
 # write connection data to local file
@@ -45,6 +44,7 @@ class City(BaseModel):
     all_cities = CharField()
     cc_cities = CharField()
 
+
 class School(BaseModel):
     location = CharField()
     # name = str('Codecool ' + location)
@@ -66,14 +66,13 @@ class Applicant(BaseModel):
             i.school = City.get(City.all_cities == i.city).cc_cities
             i.save()
 
-
     def create_app_code(self, string_length=4):
         """Returns a random string of length string_length."""
         random = str(uuid.uuid4())  # Convert UUID format to a Python string.
         random = random.upper()  # Make all characters uppercase.
         random = random.replace("-", "")  # Remove the UUID '-'.
         self.application_code = random[0:string_length]  # Return the random string.
-        self.status = "In progress"
+        # self.status = "In progress"
         self.save()
 
     @classmethod
@@ -81,10 +80,6 @@ class Applicant(BaseModel):
         no_app_code = cls.select().where(cls.application_code == None)
         for app_inst in no_app_code:
             app_inst.create_app_code()
-
-
-
-
 
 
 class Mentor(BaseModel):
