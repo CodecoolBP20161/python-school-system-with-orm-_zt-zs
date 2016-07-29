@@ -34,7 +34,8 @@ def applicant_menu():
           'If you wish to exit the program press q.\n'
           '1. Application details\n'
           '2. Interview details\n')
-
+    choice = input()
+    return choice
 
 if main_menu() == '1':
     if admin_menu() == '1':
@@ -49,22 +50,12 @@ if main_menu() == '1':
         print("Interview date assigned to applicant(s). Status updated to 'In progress'.")
     elif admin_menu() == 'q':
         pass
-    elif admin_menu() == 'b':
-        main_menu()
-    else:
-        admin_menu()
 elif main_menu() == '2':
     if applicant_menu() == '1':
-        ask_details()
+        Applicant.ask_details()
     elif choice == '2':
         print("Interview details")
     elif admin_menu() == 'q':
         pass
-    elif admin_menu() == 'b':
-        main_menu()
-    else:
-        admin_menu()
 elif main_menu() == 'q':
     pass
-else:
-    main_menu()
