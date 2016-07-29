@@ -21,7 +21,8 @@ def sub_menu():
           '\nChoose one from the following menu options and press enter.\n'
           'If you wish to exit the program press q.\n'
           '1. New Applicant\n'
-          '2. Assign school and application code to applicant')
+          '2. Assign school and application code to applicant\n'
+          '3. Assign interviews to applicants with application code\n')
     choice = input()
     return choice
 if main_menu() == '1':
@@ -32,6 +33,9 @@ if main_menu() == '1':
         Applicant.update_school()
         Applicant.detect()
         print("Schools and application code assigned to applicant(s).")
+    elif choice == '3':
+        InterviewSlot.give_interview()
+        print("Interview dates assigned to applicant(s). Status updated to 'In progress'.")
     elif sub_menu() == 'q':
         pass
     elif sub_menu() == 'b':

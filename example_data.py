@@ -56,7 +56,7 @@ krakow_interview3 = InterviewSlot.create(school=codecool_krakow, mentor=matheusz
 
 
 
-# remove this, when everything's done!!
-Applicant.detect()
-Applicant.update_school()
-InterviewSlot.give_interview()
+# # remove this, when everything's done!!
+# Applicant.detect()
+# Applicant.update_school()
+# InterviewSlot.give_interview()
