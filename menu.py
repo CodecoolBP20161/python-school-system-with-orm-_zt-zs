@@ -15,34 +15,47 @@ def main_menu():
     return choice
 
 
-def sub_menu():
+def admin_menu():
     global choice
     print('\nAdmin menu'
           '\nChoose one from the following menu options and press enter.\n'
           'If you wish to exit the program press q.\n'
           '1. New Applicant\n'
-          '2. Assign school and application code to applicant\n'
-          '3. Assign interviews to applicants with application code\n')
+          '2. Assign school and application code to applicant(s)\n'
+          '3. Assign interview to applicant(s) with application code\n')
     choice = input()
     return choice
+
+
+def applicant_menu():
+    global choice
+    print('\nApplicant menu'
+          '\nChoose one from the following menu options and press enter.\n'
+          'If you wish to exit the program press q.\n'
+          '1. Application details\n'
+          '2. Interview details\n')
+    choice = input()
+    return choice
+
 if main_menu() == '1':
-    if sub_menu() == '1':
+    if admin_menu() == '1':
         Applicant.create(first_name=input('First name: '), last_name=input('Last name: '), email=input('E-mail: '),
                          city=input('City: '))
     elif choice == '2':
         Applicant.update_school()
         Applicant.detect()
-        print("Schools and application code assigned to applicant(s).")
+        print("School and application code assigned to applicant(s).")
     elif choice == '3':
         InterviewSlot.give_interview()
-        print("Interview dates assigned to applicant(s). Status updated to 'In progress'.")
-    elif sub_menu() == 'q':
+        print("Interview date assigned to applicant(s). Status updated to 'In progress'.")
+    elif admin_menu() == 'q':
         pass
-    elif sub_menu() == 'b':
-        main_menu()
-    else:
-        sub_menu()
+elif main_menu() == '2':
+    if applicant_menu() == '1':
+        Applicant.ask_details()
+    elif choice == '2':
+        print("Interview details")
+    elif admin_menu() == 'q':
+        pass
 elif main_menu() == 'q':
     pass
-else:
-    main_menu()
