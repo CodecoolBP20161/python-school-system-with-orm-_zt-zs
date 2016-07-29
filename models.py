@@ -105,14 +105,18 @@ class InterviewSlot(BaseModel):
             for applicant in no_interview:
                 s = School.get(School.id == applicant.school)
                 if date.school == s:  # date.status is True:  # and
+                    print(date.__dict__)
+                    print(len(free_slots))
+                    free_slots.remove(date)
                     Interview.create(applicant=applicant, details=date)
                     applicant.status = "In progress"
                     applicant.interview = date
                     date.status = False
                     applicant.save()
                     date.save()
-                    # free_slots.remove(date)
-                    # no_interview.remove(applicant)
+                    #
+                    no_interview.remove(applicant)
+                    break
 
 
 class Interview(BaseModel):
