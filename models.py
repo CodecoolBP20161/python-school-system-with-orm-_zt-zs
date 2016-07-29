@@ -94,6 +94,19 @@ class Applicant(BaseModel):
         else:
             print("No such application code.")
 
+    @staticmethod
+    def interview_details():
+        your_app_code = input("Please enter your application code: ")
+        query = Applicant.select().where(Applicant.application_code == your_app_code)
+        if query:
+            for i in query:
+                s = School.get(School.id == i.school)
+                school = School.select().join(Applicant, on=(School.id == s)).get()
+                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
+                      "in Codecool", school.location + ".")
+        else:
+            print("No such application code.")
+
 
 class Mentor(BaseModel):
     first_name = CharField()
