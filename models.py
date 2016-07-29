@@ -40,14 +40,17 @@ class BaseModel(Model):
         database = db
 
 
-class City(BaseModel):
-    all_cities = CharField()
-    cc_cities = CharField()
-
-
 class School(BaseModel):
     location = CharField()
     # name = str('Codecool ' + location)
+
+
+class City(BaseModel):
+    all_cities = CharField()
+    cc_cities = ForeignKeyField(School)
+
+
+
 
 
 class Applicant(BaseModel):
@@ -56,7 +59,7 @@ class Applicant(BaseModel):
     email = CharField()
     city = CharField()
     status = CharField(default="New")
-    # interview = ForeignKeyField(Interview, related_name='applicant')  # applicant related name in Interview model
+    interview = CharField(default=None, null=True)
     school = CharField(null=True)  # related_name="no_school"
     application_code = CharField(default=None, null=True, unique=True)
 
@@ -89,16 +92,32 @@ class Mentor(BaseModel):
 
 
 class InterviewSlot(BaseModel):
+    school = ForeignKeyField(School)
     mentor = ForeignKeyField(Mentor)
     date = DateTimeField()
     status = BooleanField(default=True)  # when the timeslot is available, status is True
+
+    @classmethod
+    def give_interview(cls):
+        free_slots = list(cls.select().where(cls.status))
+        no_interview = list(Applicant.select().where(Applicant.status == "New"))  # or Applicant.interview == None
+        for date in free_slots:
+            for applicant in no_interview:
+                s = School.get(School.id == applicant.school)
+                if date.school == s:  # date.status is True:  # and
+                    Interview.create(applicant=applicant, details=date)
+                    applicant.status = "In progress"
+                    applicant.interview = date
+                    date.status = False
+                    applicant.save()
+                    date.save()
+                    # free_slots.remove(date)
+                    # no_interview.remove(applicant)
 
 
 class Interview(BaseModel):
     applicant = ForeignKeyField(Applicant)
     details = ForeignKeyField(InterviewSlot)
-    # changes the interview slot's status when booked
-    # InterviewSlot.update(case(InterviewSlot.status, ((True, False),), True))
 
 
 class Question(BaseModel):
