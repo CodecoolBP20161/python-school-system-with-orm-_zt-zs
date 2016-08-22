@@ -100,10 +100,24 @@ class Applicant(BaseModel):
         query = Applicant.select().where(Applicant.application_code == your_app_code)
         if query:
             for i in query:
-                s = School.get(School.id == i.school)
-                school = School.select().join(Applicant, on=(School.id == s)).get()
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
-                      "in Codecool", school.location + ".")
+                try:
+                    s = School.get(School.id == i.school)
+                    school = School.select().join(Applicant, on=(School.id == s)).get()
+
+                    e = Interview.get(Interview.id == i.interview)
+                    interview = Interview.select().join(Applicant, on=(Interview.id == e)).get()
+                    connect = InterviewSlot.get(InterviewSlot.id == interview.details)
+
+                    date = InterviewSlot.get(InterviewSlot.id == connect.id)
+
+                    m = Mentor.get(Mentor.id == connect.mentor)
+                    mentor = Mentor.select().join(InterviewSlot, on=(Mentor.id == m)).get()
+                    full_name = mentor.first_name + " " + mentor.last_name
+
+                    print("Hello", i.first_name, i.last_name + "!", "Your interview is with",
+                          full_name, "at", date.date, "in Codecool", school.location + ".")
+                except:
+                    print("No interview date yet.")
         else:
             print("No such application code.")
 
