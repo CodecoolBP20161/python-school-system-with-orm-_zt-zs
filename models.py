@@ -112,7 +112,7 @@ class Applicant(BaseModel):
 
                     m = Mentor.get(Mentor.id == connect.mentor)
                     mentor = Mentor.select().join(InterviewSlot, on=(Mentor.id == m)).get()
-                    full_name = mentor.first_name + " " + mentor.last_name
+                    full_name = "{0} {1}".format(mentor.first_name, mentor.last_name)
 
                     print("Hello", i.first_name, i.last_name + "!", "Your interview is with",
                           full_name, "at", date.date, "in Codecool", school.location + ".")
