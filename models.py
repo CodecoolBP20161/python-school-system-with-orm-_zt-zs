@@ -62,7 +62,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def update_school(cls):
-        for i in cls.select().where(cls.school == None):
+        for i in cls.select().where(cls.school is None):
             i.school = City.get(City.all_cities == i.city).cc_cities
             i.save()
 
@@ -77,7 +77,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def detect(cls):
-        no_app_code = cls.select().where(cls.application_code == None)
+        no_app_code = cls.select().where(cls.application_code is None)
         for app_inst in no_app_code:
             app_inst.create_app_code()
 
@@ -89,7 +89,7 @@ class Applicant(BaseModel):
             for i in query:
                 s = School.get(School.id == i.school)
                 school = School.select().join(Applicant, on=(School.id == s)).get()
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
+                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
                       "in Codecool", school.location + ".")
         else:
             print("No such application code.")
@@ -102,11 +102,10 @@ class Applicant(BaseModel):
             for i in query:
                 s = School.get(School.id == i.school)
                 school = School.select().join(Applicant, on=(School.id == s)).get()
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
+                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
                       "in Codecool", school.location + ".")
         else:
             print("No such application code.")
-
 
     @staticmethod
     def filter_applicants():
