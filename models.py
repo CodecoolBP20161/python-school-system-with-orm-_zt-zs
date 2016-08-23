@@ -108,6 +108,38 @@ class Applicant(BaseModel):
             print("No such application code.")
 
 
+    @staticmethod
+    def filter_applicants():
+        pass
+        # FILTERS = ["status", "time", "location", "personal data (name, email)",
+        #             "school", "mentor name (through interview)"]
+        #
+        # # filterby = filter chosen in the submenu; possible values in FILTERS
+        # filterby = "status"
+        # x = input("Please enter your filter: ")
+        # # for c in Applicant._meta.sorted_fields:
+        # #     if c.db_column == filterby:
+        # test = getattr(Applicant, filterby)
+        # print(test)
+        # # Applicant.get(test == x).filterby
+        # a = Applicant.get().
+        # print(a)
+        # query = Applicant.select().where(test == x)
+        # print(query)
+        # # # print(query, test)
+        # # querys = Applicant.select().where(test == x)
+        # # # print(type(querys))
+        #
+        # # if query:
+        # #     for i in query:
+        #         test = getattr(i, filterby)
+        # #         s = School.get(School.id == i.school)
+        # #         school = School.select().join(Applicant, on=(School.id == s)).get()
+        # #         print(i.first_name, i.last_name, test)
+        # # # else:
+        # # #     print("No such application code.")
+
+
 class Mentor(BaseModel):
     first_name = CharField()
     last_name = CharField()
