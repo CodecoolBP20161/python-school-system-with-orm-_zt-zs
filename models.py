@@ -107,6 +107,22 @@ class Applicant(BaseModel):
         else:
             print("No such application code.")
 
+    @staticmethod
+    def filter_applicants(filterby):
+        FILTERS = ["status", "interview", "city", "email", "first_name", "last_name", "school", "mentor"]
+
+        print()
+        print("Filter by", filterby)
+
+        print()
+        exact_filter = input("Please enter your parameter: ")
+        print()
+
+        connect = getattr(Applicant, filterby)
+        query = Applicant.select().where(connect == exact_filter)
+        for i in query:
+            print("{0} {1}, {2}: {3}".format(i.first_name, i.last_name, filterby, exact_filter))
+
 
 class Mentor(BaseModel):
     first_name = CharField()
