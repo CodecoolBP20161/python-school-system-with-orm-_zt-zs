@@ -109,19 +109,70 @@ class Applicant(BaseModel):
 
     @staticmethod
     def filter_applicants(filterby):
-        FILTERS = ["status", "interview", "city", "email", "first_name", "last_name", "school", "mentor"]
+        print("\nFilter by", filterby)
 
-        print()
-        print("Filter by", filterby)
+        if filterby == "school":
+            schools = [("Budapest press 1,"), ("Miskolc 2,"), ("Krakow 3")]
+            print("For Codecool", end="")
+            for school in schools:
+                print(" {0}".format(school), end="")
 
-        print()
-        exact_filter = input("Please enter your parameter: ")
-        print()
+        if filterby == "interview":
+            interview_slots = InterviewSlot.select().where(InterviewSlot.status == False)
+            print("Reserved interview slots (enter interview id number):")
+            for i in interview_slots:
+                print(i.id, i.date)
 
-        connect = getattr(Applicant, filterby)
-        query = Applicant.select().where(connect == exact_filter)
-        for i in query:
-            print("{0} {1}, {2}: {3}".format(i.first_name, i.last_name, filterby, exact_filter))
+        if filterby == "mentor":
+            mentors = Mentor.select().where(Mentor.id > 0)
+            print("Mentors (enter mentor id number):")
+            for i in mentors:
+                print(i.id, i.first_name, i.last_name)
+
+        exact_filter = input("\nPlease enter your parameter: \n")
+        try:
+            connect = getattr(Applicant, filterby)
+            if connect:
+                connect_school = getattr(School, "location")
+                query_school = School.select().where(connect_school == exact_filter)
+
+                for f in query_school:
+                    print("Codecool", f.location)
+
+                query = Applicant.select().where(connect == exact_filter)
+                for i in query:
+                    if filterby == "school":
+                        s = School.get(School.id == i.school)
+                        school = School.select().join(Applicant, on=(School.id == s)).get()
+                        print("{} {}, {}: {}".format(i.first_name, i.last_name, filterby, school.location))
+
+                    elif filterby == "interview":
+                        e = InterviewSlot.get(InterviewSlot.id == i.interview)
+                        interview = Interview.select().join(Applicant, on=(Interview.details == e)).get()
+                        connect = InterviewSlot.get(InterviewSlot.id == interview.details)
+                        date = InterviewSlot.get(InterviewSlot.id == connect.id)
+
+                        if date.date:
+                            print("{} {}, {}: {}".format(i.first_name, i.last_name, filterby, date.date))
+                        else:
+                            print("No interview date yet.")
+                    elif filterby == "mentor":
+                        e = InterviewSlot.get(InterviewSlot.id == i.interview)
+                        interview = Interview.select().join(Applicant, on=(Interview.details == e)).get()
+                        connect = InterviewSlot.get(InterviewSlot.id == interview.details)
+                        mentor = InterviewSlot.get(InterviewSlot.mentor == Mentor.id)
+                        print("{} {}, {}: {}".format(i.first_name, i.last_name, filterby, mentor.first_name, mentor.last_name))
+
+                    else:
+                        print("{} {}, {}: {}".format(i.first_name, i.last_name, filterby, exact_filter))
+        except:
+            if filterby == "mentor":
+                connect = getattr(Mentor, "id")
+                query_mentor = Mentor.select().where(connect == exact_filter)
+                for m in query_mentor:
+                    date = InterviewSlot.get(InterviewSlot.mentor == m.id)
+                    applicant = Applicant.select().join(Interview, on=(Interview.applicant == Applicant.id)).get()
+                    print("{} {}, {} {} {}".format(m.first_name, m.last_name, date.date, applicant.first_name, applicant.last_name))
 
 
 class Mentor(BaseModel):
