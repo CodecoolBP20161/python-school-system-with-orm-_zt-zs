@@ -62,7 +62,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def update_school(cls):
-        for i in cls.select().where(cls.school is None):
+        for i in cls.select().where(cls.school == None):
             i.school = City.get(City.all_cities == i.city).cc_cities
             i.save()
 
@@ -77,7 +77,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def detect(cls):
-        no_app_code = cls.select().where(cls.application_code is None)
+        no_app_code = cls.select().where(cls.application_code == None)
         for app_inst in no_app_code:
             app_inst.create_app_code()
 
