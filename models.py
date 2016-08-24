@@ -99,23 +99,22 @@ class Applicant(BaseModel):
         your_app_code = input("Please enter your application code: ")
         query = Applicant.select().where(Applicant.application_code == your_app_code)
         if query:
-            for i in query:
+            for applicant in query:
                 try:
-                    s = School.get(School.id == i.school)
+                    s = School.get(School.id == applicant.school)
                     school = School.select().join(Applicant, on=(School.id == s)).get()
 
-                    e = Interview.get(Interview.id == i.interview)
-                    interview = Interview.select().join(Applicant, on=(Interview.id == e)).get()
+                    i = Interview.get(Interview.id == applicant.interview)
+                    interview = Interview.select().join(Applicant, on=(Interview.id == i)).get()
                     connect = InterviewSlot.get(InterviewSlot.id == interview.details)
-
                     date = InterviewSlot.get(InterviewSlot.id == connect.id)
 
                     m = Mentor.get(Mentor.id == connect.mentor)
                     mentor = Mentor.select().join(InterviewSlot, on=(Mentor.id == m)).get()
-                    full_name = "{0} {1}".format(mentor.first_name, mentor.last_name)
+                    full_name = "{} {}".format(mentor.first_name, mentor.last_name)
 
-                    print("Hello", i.first_name, i.last_name + "!", "Your interview is with",
-                          full_name, "at", date.date, "in Codecool", school.location + ".")
+                    print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(applicant.first_name,
+                    applicant.last_name, full_name, date.date, school.location))
                 except:
                     print("No interview date yet.")
         else:
