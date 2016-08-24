@@ -89,7 +89,7 @@ class Applicant(BaseModel):
             for i in query:
                 s = School.get(School.id == i.school)
                 school = School.select().join(Applicant, on=(School.id == s)).get()
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
+                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
                       "in Codecool", school.location + ".")
         else:
             print("No such application code.")
@@ -99,44 +99,26 @@ class Applicant(BaseModel):
         your_app_code = input("Please enter your application code: ")
         query = Applicant.select().where(Applicant.application_code == your_app_code)
         if query:
-            for i in query:
-                s = School.get(School.id == i.school)
-                school = School.select().join(Applicant, on=(School.id == s)).get()
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
-                      "in Codecool", school.location + ".")
+            for applicant in query:
+                try:
+                    s = School.get(School.id == applicant.school)
+                    school = School.select().join(Applicant, on=(School.id == s)).get()
+
+                    i = Interview.get(Interview.id == applicant.interview)
+                    interview = Interview.select().join(Applicant, on=(Interview.id == i)).get()
+                    connect = InterviewSlot.get(InterviewSlot.id == interview.details)
+                    date = InterviewSlot.get(InterviewSlot.id == connect.id)
+
+                    m = Mentor.get(Mentor.id == connect.mentor)
+                    mentor = Mentor.select().join(InterviewSlot, on=(Mentor.id == m)).get()
+                    full_name = "{} {}".format(mentor.first_name, mentor.last_name)
+
+                    print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(applicant.first_name,
+                    applicant.last_name, full_name, date.date, school.location))
+                except:
+                    print("No interview date yet.")
         else:
             print("No such application code.")
-
-    @staticmethod
-    def filter_applicants():
-        pass
-        # FILTERS = ["status", "time", "location", "personal data (name, email)",
-        #             "school", "mentor name (through interview)"]
-        #
-        # # filterby = filter chosen in the submenu; possible values in FILTERS
-        # filterby = "status"
-        # x = input("Please enter your filter: ")
-        # # for c in Applicant._meta.sorted_fields:
-        # #     if c.db_column == filterby:
-        # test = getattr(Applicant, filterby)
-        # print(test)
-        # # Applicant.get(test == x).filterby
-        # a = Applicant.get().
-        # print(a)
-        # query = Applicant.select().where(test == x)
-        # print(query)
-        # # # print(query, test)
-        # # querys = Applicant.select().where(test == x)
-        # # # print(type(querys))
-        #
-        # # if query:
-        # #     for i in query:
-        #         test = getattr(i, filterby)
-        # #         s = School.get(School.id == i.school)
-        # #         school = School.select().join(Applicant, on=(School.id == s)).get()
-        # #         print(i.first_name, i.last_name, test)
-        # # # else:
-        # # #     print("No such application code.")
 
 
 class Mentor(BaseModel):
