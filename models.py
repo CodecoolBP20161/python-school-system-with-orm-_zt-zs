@@ -120,6 +120,71 @@ class Applicant(BaseModel):
         else:
             print("No such application code.")
 
+    @staticmethod
+    def filter_applicants(filterby):
+        print("\nFilter by", filterby)
+
+        # printing instructions depending on the selected filter
+        if filterby == "school":
+            schools = [("Budapest enter 1,"), ("Miskolc 2,"), ("Krakow 3")]
+            print("For Codecool", end="")
+            for school in schools:
+                print(" {0}".format(school), end="")
+
+        elif filterby == "interview":
+            interview_slots = InterviewSlot.select().where(InterviewSlot.status == False)
+            print("Reserved interview slots (enter interview id number):")
+            for i in interview_slots:
+                print(i.id, i.date)
+
+        elif filterby == "mentor":
+            mentors = Mentor.select().where(Mentor.id > 0)
+            print("Mentors (enter mentor id number):")
+            for i in mentors:
+                print(i.id, i.first_name, i.last_name)
+
+        # asking for the data tha user wants to see
+        exact_filter = input("\nPlease enter your parameter: \n")
+
+        # printing matches
+        try:
+            # when the filter is the same as a column in the Applicant table
+            connect = getattr(Applicant, filterby)
+            if connect:
+                # selecting all the applicants with the matching filter
+                query = Applicant.select().where(connect == exact_filter)
+                for applicant in query:
+                    # print the common stuff
+                    print("{} {}, {}: ".format(applicant.first_name, applicant.last_name, filterby), end="")
+                    if filterby == "school":
+                        s = School.get(School.id == applicant.school)
+                        school = School.select().join(Applicant, on=(School.id == s)).get()
+                        # print stuff that's unique for the filter
+                        print("{}".format(school.location))
+
+                    elif filterby == "interview":
+                        i = InterviewSlot.get(InterviewSlot.id == applicant.interview)
+                        interview = Interview.select().join(Applicant, on=(Interview.details == i)).get()
+                        details = InterviewSlot.get(InterviewSlot.id == interview.details)
+                        date = InterviewSlot.get(InterviewSlot.id == details.id)
+
+                        if date.date:
+                            print("{}".format(date.date))
+                        else:
+                            print("No interview date yet.")
+                    else:
+                        print("{}".format(exact_filter))
+
+        # when the filter is other than the Applicant's columns
+        except:
+            if filterby == "mentor":
+                connect = getattr(Mentor, "id")
+                query_mentor = Mentor.select().where(connect == exact_filter)
+                for mentor in query_mentor:
+                    date = InterviewSlot.get(InterviewSlot.mentor == mentor.id)
+                    applicant = Applicant.select().join(Interview, on=(Interview.applicant == Applicant.id)).get()
+                    print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name, date.date, applicant.first_name, applicant.last_name))
+
 
 class Mentor(BaseModel):
     first_name = CharField()

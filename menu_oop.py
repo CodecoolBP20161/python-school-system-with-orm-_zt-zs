@@ -25,8 +25,15 @@ applicant_menu = Menu(
 )
 
 applicant_filters = Menu(
-    ['filters'],
-    [['print("results")']]
+    ['status', 'time', 'location', 'first name', 'last name', 'email', 'school', 'assigned mentor'],
+    [['Applicant.filter_applicants("status")'],
+     ['Applicant.filter_applicants("interview")'],
+     ['Applicant.filter_applicants("city")'],
+     ['Applicant.filter_applicants("first_name")'],
+     ['Applicant.filter_applicants("last_name")'],
+     ['Applicant.filter_applicants("email")'],
+     ['Applicant.filter_applicants("school")'],
+     ['Applicant.filter_applicants("mentor")']]
 )
 
 admin_menu = Menu(
