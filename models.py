@@ -55,29 +55,27 @@ class Mentor(BaseModel):
     last_name = CharField()
     school = ForeignKeyField(School)
 
-    @staticmethod
-    def ask_name():
-        # try:
-        name = input("What's your (full) name? \n")
-        name = name.split(" ")
-        for query in Mentor.select(Mentor.first_name, Mentor.last_name):
-            if name[0] == query.first_name and name[1] == query.last_name:
-                _query = Applicant\
-                    .select(Applicant.first_name, Applicant.last_name, Applicant.application_code,
-                            InterviewSlot.date).join(Interview, on=(Applicant.id == Interview.applicant_id))\
-                    .join(InterviewSlot, on=(InterviewSlot.id == Interview.details_id))\
-                    .join(Mentor, on=(Mentor.id == InterviewSlot.mentor_id))
-                print("1")
-                for interview in _query:
-                    print(interview.first_name, interview.last_name, interview.application_code, interview.date)
-                print("2")
-        # except:
-        #     print("That's not a valid name in teh database. Good bye.")
+    @classmethod
+    def ask_name(cls):
+        try:
+            name_input = input("What's your full name? \n")
+            for mentor in cls.select():
+                full_name = "{} {}".format(mentor.first_name, mentor.last_name)
+                if name_input == full_name:
+                    interviews = []
+                    for applicant in Applicant.select():
+                        if applicant.interview.mentor == mentor:
+                            interviews.append(applicant)
+                    for detail in interviews:
+                        print("\nYour interviews are:\napplicant name: {} {}\napplication code: {}\ndate: {}\n".format(
+                            detail.first_name, detail.last_name, detail.application_code, detail.interview.date))
+        except:
+            print("There's no mentor with that name in teh database. Good bye.")
 
 
 class InterviewSlot(BaseModel):
     school = ForeignKeyField(School, related_name="interview_slots")
-    mentor = ForeignKeyField(Mentor, related_name='interviewSlot_mentor')
+    mentor = ForeignKeyField(Mentor, related_name='interview_slots')
     date = DateTimeField()
     status = BooleanField(default=True)  # when the timeslot is available, status is True
 
@@ -104,8 +102,8 @@ class Applicant(BaseModel):
     email = CharField()
     city = CharField()
     status = CharField(default="New")
-    interview = ForeignKeyField(InterviewSlot, related_name='interview_slot', null=True)
-    school = ForeignKeyField(School, related_name='school', null=True)
+    interview = ForeignKeyField(InterviewSlot, related_name='applicant', null=True)
+    school = ForeignKeyField(School, related_name='applicant', null=True)
     application_code = CharField(default=None, null=True, unique=True)
 
     @classmethod
@@ -158,20 +156,17 @@ class Applicant(BaseModel):
     @staticmethod
     def filter_applicants(filterby):
         print("\nFilter by", filterby)
-
         # printing instructions depending on the selected filter
         if filterby == "school":
             schools = [("Budapest enter 1,"), ("Miskolc 2,"), ("Krakow 3")]
             print("For Codecool", end="")
             for school in schools:
                 print(" {0}".format(school), end="")
-
         elif filterby == "interview":
             interview_slots = InterviewSlot.select().where(InterviewSlot.status == False)
             print("Reserved interview slots (enter interview id number):")
             for i in interview_slots:
                 print(i.id, i.date)
-
         elif filterby == "mentor":
             mentors = Mentor.select().where(Mentor.id > 0)
             print("Mentors (enter mentor id number):")
