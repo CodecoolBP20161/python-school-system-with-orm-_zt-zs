@@ -225,61 +225,6 @@ class Applicant(BaseModel):
                           date.date, applicant.first_name, applicant.last_name))
 
 
-class Mentor(BaseModel):
-    first_name = CharField()
-    last_name = CharField()
-    school = ForeignKeyField(School)
-
-    @staticmethod
-    def ask_name():
-        # try:
-        name = input("What's your (full) name? \n")
-        name = name.split(" ")
-        for query in Mentor.select(Mentor.first_name, Mentor.last_name):
-            if name[0] == query.first_name and name[1] == query.last_name:
-                _query = Applicant\
-                    .select(Applicant.first_name, Applicant.last_name, Applicant.application_code,
-                            InterviewSlot.date).join(Interview, on=(Applicant.id == Interview.applicant_id))\
-                    .join(InterviewSlot, on=(InterviewSlot.id == Interview.details_id))\
-                    .join(Mentor, on=(Mentor.id == InterviewSlot.mentor_id))
-                print("1")
-                for interview in _query:
-                    print(interview.first_name, interview.last_name, interview.application_code, interview.date)
-                print("2")
-        # except:
-        #     print("That's not a valid name in teh database. Good bye.")
-
-
-class InterviewSlot(BaseModel):
-    school = ForeignKeyField(School, related_name="interview_slots")
-    mentor = ForeignKeyField(Mentor)
-    date = DateTimeField()
-    status = BooleanField(default=True)  # when the timeslot is available, status is True
-
-    @classmethod
-    def give_interview(cls):
-        free_slots = list(cls.select().where(cls.status))
-        no_interview = list(Applicant.select().where(Applicant.status == "New"))  # or Applicant.interview == None
-        for date in free_slots:
-            for applicant in no_interview:
-                connected_city = School.get(School.id == applicant.school)
-                if date.school == connected_city:
-                    free_slots.remove(date)
-                    Interview.create(applicant=applicant, details=date)
-                    applicant.status = "In progress"
-                    applicant.interview = date
-                    date.status = False
-                    applicant.save()
-                    date.save()
-                    no_interview.remove(applicant)
-                    break
-
-
-class Interview(BaseModel):
-    applicant = ForeignKeyField(Applicant)
-    details = ForeignKeyField(InterviewSlot)
-
-
 class Question(BaseModel):
     pass
 
