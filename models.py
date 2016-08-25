@@ -89,7 +89,7 @@ class Applicant(BaseModel):
             for i in query:
                 s = School.get(School.id == i.school)
                 school = School.select().join(Applicant, on=(School.id == s)).get()
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
+                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
                       "in Codecool", school.location + ".")
         else:
             print("No such application code.")
@@ -113,8 +113,8 @@ class Applicant(BaseModel):
                     mentor = Mentor.select().join(InterviewSlot, on=(Mentor.id == m)).get()
                     full_name = "{} {}".format(mentor.first_name, mentor.last_name)
 
-                    print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(applicant.first_name,
-                    applicant.last_name, full_name, date.date, school.location))
+                    print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(
+                        applicant.first_name, applicant.last_name, full_name, date.date, school.location))
                 except:
                     print("No interview date yet.")
         else:
@@ -183,7 +183,8 @@ class Applicant(BaseModel):
                 for mentor in query_mentor:
                     date = InterviewSlot.get(InterviewSlot.mentor == mentor.id)
                     applicant = Applicant.select().join(Interview, on=(Interview.applicant == Applicant.id)).get()
-                    print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name, date.date, applicant.first_name, applicant.last_name))
+                    print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
+                          date.date, applicant.first_name, applicant.last_name))
 
 
 class Mentor(BaseModel):
