@@ -1,5 +1,6 @@
 from models import *
 
+
 class Menu:
 
     def __init__(self, menu_options, menu_actions):

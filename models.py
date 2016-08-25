@@ -87,15 +87,13 @@ class InterviewSlot(BaseModel):
         no_interview = list(Applicant.select().where(Applicant.status == "New"))  # or Applicant.interview == None
         for date in free_slots:
             for applicant in no_interview:
-                connected_city = School.get(School.id == applicant.school)
-                if date.school == connected_city:
-                    free_slots.remove(date)
-                    Interview.create(applicant=applicant, details=date)
+                if date.school == applicant.school:
+                    applicant.interview = date.id
                     applicant.status = "In progress"
-                    applicant.interview = date
                     date.status = False
                     applicant.save()
                     date.save()
+                    free_slots.remove(date)
                     no_interview.remove(applicant)
                     break
 
