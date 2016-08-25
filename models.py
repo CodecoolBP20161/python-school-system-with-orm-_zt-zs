@@ -56,8 +56,8 @@ class Applicant(BaseModel):
     email = CharField()
     city = CharField()
     status = CharField(default="New")
-    interview = ForeignKeyField(InterviewSlot, related_name='interview_slot')
-    school = ForeignKeyField(School, related_name='school')
+    interview = ForeignKeyField(InterviewSlot, related_name='interview_slot', null = True)
+    school = ForeignKeyField(School, related_name='school', null = True)
     application_code = CharField(default=None, null=True, unique=True)
 
     @classmethod
@@ -89,8 +89,8 @@ class Applicant(BaseModel):
             for i in query:
                 s = School.get(School.id == i.school)
                 school = School.select().join(Applicant, on=(School.id == s)).get()
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
-                      "in Codecool", school.location + ".")
+                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
+                      "in Codecool", i.school.id + ".")
         else:
             print("No such application code.")
 
@@ -113,8 +113,8 @@ class Applicant(BaseModel):
                     mentor = Mentor.select().join(InterviewSlot, on=(Mentor.id == m)).get()
                     full_name = "{} {}".format(mentor.first_name, mentor.last_name)
 
-                    print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(applicant.first_name,
-                    applicant.last_name, full_name, date.date, school.location))
+                    print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(
+                        applicant.first_name, applicant.last_name, full_name, date.date, applicant.school.id))
                 except:
                     print("No interview date yet.")
         else:
@@ -157,19 +157,11 @@ class Applicant(BaseModel):
                     # print the common stuff
                     print("{} {}, {}: ".format(applicant.first_name, applicant.last_name, filterby), end="")
                     if filterby == "school":
-                        s = School.get(School.id == applicant.school)
-                        school = School.select().join(Applicant, on=(School.id == s)).get()
-                        # print stuff that's unique for the filter
-                        print("{}".format(school.location))
+                        print(applicant.school.id)
 
                     elif filterby == "interview":
-                        i = InterviewSlot.get(InterviewSlot.id == applicant.interview)
-                        interview = Interview.select().join(Applicant, on=(Interview.details == i)).get()
-                        details = InterviewSlot.get(InterviewSlot.id == interview.details)
-                        date = InterviewSlot.get(InterviewSlot.id == details.id)
-
-                        if date.date:
-                            print("{}".format(date.date))
+                        if applicant.interview.date:
+                            print("{}".format(applicant.interview.date))
                         else:
                             print("No interview date yet.")
                     else:
@@ -183,7 +175,8 @@ class Applicant(BaseModel):
                 for mentor in query_mentor:
                     date = InterviewSlot.get(InterviewSlot.mentor == mentor.id)
                     applicant = Applicant.select().join(Interview, on=(Interview.applicant == Applicant.id)).get()
-                    print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name, date.date, applicant.first_name, applicant.last_name))
+                    print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
+                          date.date, applicant.first_name, applicant.last_name))
 
 
 class Mentor(BaseModel):
@@ -237,8 +230,8 @@ class InterviewSlot(BaseModel):
 
 
 class Interview(BaseModel):
-    applicant = ForeignKeyField(Applicant)
-    details = ForeignKeyField(InterviewSlot)
+    applicant = ForeignKeyField(Applicant, null=True)
+    details = ForeignKeyField(InterviewSlot, null=True)
 
 
 class Question(BaseModel):
