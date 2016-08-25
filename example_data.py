@@ -53,10 +53,3 @@ miskolc_interview4 = InterviewSlot.create(school=codecool_miskolc, mentor=attila
 krakow_interview = InterviewSlot.create(school=codecool_krakow, mentor=matheusz, date='2016-09-01 10:00')
 krakow_interview2 = InterviewSlot.create(school=codecool_krakow, mentor=matheusz, date='2016-09-01 11:00')
 krakow_interview3 = InterviewSlot.create(school=codecool_krakow, mentor=matheusz, date='2016-09-02 11:00')
-
-
-
-# # remove this, when everything's done!!
-# Applicant.detect()
-# Applicant.update_school()
-# InterviewSlot.give_interview()
