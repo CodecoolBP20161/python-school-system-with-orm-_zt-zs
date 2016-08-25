@@ -204,9 +204,9 @@ class Applicant(BaseModel):
                 for applicant in query:
                     # print the common stuff
                     print("{} {}, {}: ".format(applicant.first_name, applicant.last_name, filterby), end="")
+
                     if filterby == "school":
                         print(applicant.school.id)
-
                     elif filterby == "interview":
                         if applicant.interview.date:
                             print("{}".format(applicant.interview.date))
