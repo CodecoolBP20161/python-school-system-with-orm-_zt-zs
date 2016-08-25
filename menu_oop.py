@@ -27,7 +27,7 @@ mentor_menu = Menu(
 
 applicant_menu = Menu(
     ['Application details', 'Interview details'],
-    [['Applicant.ask_details()'], ['Applicant.interview_details()']]
+    [['Applicant.application_details()'], ['Applicant.interview_details()']]
 )
 
 applicant_filters = Menu(
