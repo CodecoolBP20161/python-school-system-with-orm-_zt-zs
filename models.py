@@ -57,20 +57,21 @@ class Mentor(BaseModel):
 
     @classmethod
     def ask_name(cls):
-        try:
-            name_input = input("What's your full name? \n")
-            for mentor in cls.select():
-                full_name = "{} {}".format(mentor.first_name, mentor.last_name)
-                if name_input == full_name:
-                    interviews = []
-                    for applicant in Applicant.select():
-                        if applicant.interview.mentor == mentor:
-                            interviews.append(applicant)
-                    for detail in interviews:
-                        print("\nYour interviews are:\napplicant name: {} {}\napplication code: {}\ndate: {}\n".format(
-                            detail.first_name, detail.last_name, detail.application_code, detail.interview.date))
-        except:
-            print("There's no mentor with that name in teh database. Good bye.")
+        name_input = input("\nEnter your full name to log in and see your interview details.\n")
+        for mentor in cls.select():
+            full_name = "{} {}".format(mentor.first_name, mentor.last_name)
+            if name_input == full_name:
+                print("\nLogin successful. Yay!")
+                interviews = []
+                for applicant in Applicant.select():
+                    if applicant.interview.mentor == mentor:
+                        interviews.append(applicant)
+                for detail in interviews:
+                    print("\nYour interviews are:\napplicant name: {} {}\napplication code: {}\ndate: {}\n".format(
+                        detail.first_name, detail.last_name, detail.application_code, detail.interview.date))
+            else:
+                print("\nThere's no mentor by that name in teh database. Good bye.")
+                break
 
 
 class InterviewSlot(BaseModel):
