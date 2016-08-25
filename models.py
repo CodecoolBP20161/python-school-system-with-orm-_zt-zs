@@ -127,31 +127,30 @@ class Applicant(BaseModel):
         for app_inst in no_app_code:
             app_inst.create_app_code()
 
-    @staticmethod
-    def ask_details():
-        your_app_code = input("Please enter your application code: ")
-        query = Applicant.select().where(Applicant.application_code == your_app_code)
-        if query:
-            for i in query:
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
-                      "in Codecool", i.school.location + ".")
+    @classmethod
+    def application_details(cls):
+        input_app_code = input("Please enter your application code: ")
+        applicant = cls.select().where(cls.application_code == input_app_code).get()
+        if applicant:
+            print("Hello, {} {}! Your status is '{}' in Codecool {}"
+                  .format(applicant.first_name, applicant.last_name, applicant.status, applicant.school.location))
         else:
-            print("No such application code.")
+            print("Not a valid application code.")
 
     @classmethod
     def interview_details(cls):
         your_app_code = input("Please enter your application code: ")
-        query = cls.select().where(cls.application_code == your_app_code).get()
-        if query:
+        applicant = cls.select().where(cls.application_code == your_app_code).get()
+        if applicant:
             try:
-                full_name = "{} {}".format(query.interview.mentor.first_name,
-                                           query.interview.mentor.last_name)
-                print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(
-                    query.first_name, query.last_name, full_name, query.interview.date, query.school.location))
+                full_name = "{} {}".format(applicant.interview.mentor.first_name,
+                                           applicant.interview.mentor.last_name)
+                print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(applicant.first_name,
+                      applicant.last_name, full_name, applicant.interview.date, applicant.school.location))
             except:
                 print("No interview date yet.")
         else:
-            print("No such application code.")
+            print("Not a valid application code.")
 
     @staticmethod
     def filter_applicants(filterby):
