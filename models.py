@@ -112,7 +112,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def update_school(cls):
-        for i in cls.select().where(cls.school is None):
+        for i in cls.select().where(cls.school == None):
             i.school = City.get(City.all_cities == i.city).cc_cities
             i.save()
 
@@ -137,8 +137,8 @@ class Applicant(BaseModel):
         query = Applicant.select().where(Applicant.application_code == your_app_code)
         if query:
             for i in query:
-                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'" ,
-                      "in Codecool", i.school + ".")
+                print("Hello", i.first_name, i.last_name + "!", "Your status is", "'" + i.status + "'",
+                      "in Codecool", i.school.location + ".")
         else:
             print("No such application code.")
 

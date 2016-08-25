@@ -19,6 +19,11 @@ class Menu:
                     exec(function)
 
 
+mentor_menu = Menu(
+    ['Interview details'],
+    [['Mentor.ask_name()']]
+)
+
 applicant_menu = Menu(
     ['Application details', 'Interview details'],
     [['Applicant.ask_details()'], ['Applicant.interview_details()']]
@@ -48,7 +53,7 @@ admin_menu = Menu(
 
 main_menu = Menu(
     ['Admin', 'Applicant', 'Mentor'],
-    [['admin_menu.print_menu()'], ['applicant_menu.print_menu()'], ['print("Mentor menu under construction")']]
+    [['admin_menu.print_menu()'], ['applicant_menu.print_menu()'], ['mentor_menu.print_menu()']]
 )
 
 main_menu.print_menu()
