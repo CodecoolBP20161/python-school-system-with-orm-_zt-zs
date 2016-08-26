@@ -69,9 +69,6 @@ class Mentor(BaseModel):
                 for detail in interviews:
                     print("\nYour interviews are:\napplicant name: {} {}\napplication code: {}\ndate: {}\n".format(
                         detail.first_name, detail.last_name, detail.application_code, detail.interview.date))
-            else:
-                print("\nThere's no mentor by that name in teh database. Good bye.")
-                break
 
 
 class InterviewSlot(BaseModel):
