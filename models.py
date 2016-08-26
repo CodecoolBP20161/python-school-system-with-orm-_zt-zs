@@ -170,6 +170,7 @@ class Applicant(BaseModel):
             for i in mentors:
                 print(i.id, i.first_name, i.last_name)
 
+
         # asking for the data tha user wants to see
         exact_filter = input("\nPlease enter your parameter: \n")
 
@@ -182,15 +183,17 @@ class Applicant(BaseModel):
                 query = Applicant.select().where(connect == exact_filter)
                 for applicant in query:
                     # print the common stuff
-                    print("{} {}, {}: ".format(applicant.first_name, applicant.last_name, filterby), end="")
+                    print("{} {}: ".format(applicant.first_name, applicant.last_name), end="")
 
                     if filterby == "school":
-                        print(applicant.school.id)
+                        print(applicant.school.location)
                     elif filterby == "interview":
                         if applicant.interview.date:
                             print("{}".format(applicant.interview.date))
                         else:
                             print("No interview date yet.")
+                    elif filterby == "first_name" or filterby == "last_name":
+                        print(" {}, Codecool {}".format(applicant.status, applicant.school.location))
                     else:
                         print("{}".format(exact_filter))
 
