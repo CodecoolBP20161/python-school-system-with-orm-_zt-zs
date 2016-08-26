@@ -1,4 +1,6 @@
 from models import *
+from email_sender import *
+test = Email_sender("testing", "atelon09@gmail.com")
 
 
 class Menu:
@@ -13,7 +15,7 @@ class Menu:
         Menu.menu_action(self)
 
     def menu_action(self):
-        choice = int(input('Enter the number of the menu option you wanna perform: '))
+        choice = int(input('\nEnter the number of the menu option you wanna perform: '))
         for option in enumerate(self.menu_options):
             if option[0] + 1 == choice:
                 for function in self.menu_actions[choice - 1]:
@@ -46,7 +48,8 @@ admin_menu = Menu(
     ['Assign school and application code to applicant(s)', 'Assign interview to applicant(s) with application code',
      'Get applications details by filter'],
     [['Applicant.update_school()', 'Applicant.detect()',
-      'print("School and application code assigned to applicant(s).")'],
+      'print("School and application code assigned to applicant(s).")',
+      'test.send_it()'],
      ['InterviewSlot.give_interview()',
       '''print("Interview date assigned to applicant(s). Status updated to 'In progress'.")'''],
      ['applicant_filters.print_menu()']]
