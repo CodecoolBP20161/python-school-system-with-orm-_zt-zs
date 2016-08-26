@@ -202,10 +202,13 @@ class Applicant(BaseModel):
                 connect = getattr(Mentor, "id")
                 query_mentor = Mentor.select().where(connect == exact_filter)
                 for mentor in query_mentor:
-                    date = InterviewSlot.get(InterviewSlot.mentor == mentor.id)
-                    applicant = Applicant.select().join(Interview, on=(Interview.applicant == Applicant.id)).get()
-                    print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
-                          date.date, applicant.first_name, applicant.last_name))
+                    all_int = list(InterviewSlot.select().where(InterviewSlot.mentor == mentor.id))
+                    for interview in all_int:
+                        applicants = Applicant.select().where(Applicant.interview == interview.id)
+                        for a in applicants:
+                            print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
+                                                       interview.date, a.first_name, a.last_name))
+
 
 
 class Question(BaseModel):
