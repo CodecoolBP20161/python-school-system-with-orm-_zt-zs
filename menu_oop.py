@@ -1,6 +1,4 @@
 from models import *
-from email_sender import *
-test = Email_sender("testing", "atelon09@gmail.com")
 
 
 class Menu:
@@ -48,8 +46,7 @@ admin_menu = Menu(
     ['Assign school and application code to applicant(s)', 'Assign interview to applicant(s) with application code',
      'Get applications details by filter'],
     [['Applicant.update_school()', 'Applicant.detect()',
-      'print("School and application code assigned to applicant(s).")',
-      'test.send_it()'],
+      'print("School and application code assigned to applicant(s).")'],
      ['InterviewSlot.give_interview()',
       '''print("Interview date assigned to applicant(s). Status updated to 'In progress'.")'''],
      ['applicant_filters.print_menu()']]
