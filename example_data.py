@@ -5,7 +5,7 @@ from models import *
 
 codecool_bp = School.create(location="Budapest")
 codecool_miskolc = School.create(location="Miskolc")
-codecool_krakow = School.create(location="Kraków")
+codecool_krakow = School.create(location="Krakow")
 
 
 miskolc = City.create(all_cities="Miskolc", cc_cities=codecool_miskolc)
@@ -18,17 +18,17 @@ nyegyhaza = City.create(all_cities="Nyíregyháza", cc_cities=codecool_miskolc)
 eger = City.create(all_cities="Eger", cc_cities=codecool_miskolc)
 satoraljaujhely = City.create(all_cities="Sátoraljaújhely", cc_cities=codecool_miskolc)
 gyor = City.create(all_cities="Győr", cc_cities=codecool_bp)
-krakow = City.create(all_cities="Kraków", cc_cities=codecool_krakow)
+krakow = City.create(all_cities="Krakow", cc_cities=codecool_krakow)
 warsaw = City.create(all_cities="Warsaw", cc_cities=codecool_krakow)
 
 
-kovacsbela = Applicant.create(first_name="Béla", last_name="Kovács", email="belakovacs@gmail.com", city="Budapest")
-kovacsanna = Applicant.create(first_name="Anna", last_name="Kovács", email="annak_ovacs@gmail.com", city="Miskolc")
-kissistvan = Applicant.create(first_name="István", last_name="Kiss", email="istvankiss01@gmail.com", city="Eger")
-nagynora = Applicant.create(first_name="Nóra", last_name="Nagy", email="nagynorann@gmail.com", city="Pécs")
-matheuszzcyl = Applicant.create(first_name="Matheusz", last_name="Zcyl", email="zmatheusz@gmail.com", city="Kraków")
-tothlaszlo = Applicant.create(first_name="László", last_name="Tóth", email="laci90@gmail.com",  city="Szeged")
-johndoe = Applicant.create(first_name="John", last_name="Doe", email="thisismyemail@gmail.com", city="Warsaw")
+kisattila = Applicant.create(first_name="Attila", last_name="Kiss", email="kattila@trdsd.com", city="Budapest")
+jakabanna = Applicant.create(first_name="Anna", last_name="Jakab", email="annak_j@trdsd.com", city="Miskolc")
+nagyemese = Applicant.create(first_name="Emese", last_name="Nagy", email="emesenagy01@trdsd.com", city="Eger")
+feketetibor = Applicant.create(first_name="Tibor", last_name="Fekete", email="tibif@trdsd.com", city="Pécs")
+matheuszzcyl = Applicant.create(first_name="Matheusz", last_name="Zcyl", email="zmatheusz@trdsd.com", city="Krakow")
+barnajanka = Applicant.create(first_name="Janka", last_name="Barna", email="jankab90@trdsd.com",  city="Szeged")
+johndoe = Applicant.create(first_name="John", last_name="Doe", email="thisismyemail@trdsd.com", city="Warsaw")
 
 
 miki = Mentor.create(first_name="Miki", last_name="Beöthy", school=codecool_bp)
