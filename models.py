@@ -155,10 +155,10 @@ class Applicant(BaseModel):
         print("\nFilter by", filterby)
         # printing instructions depending on the selected filter
         if filterby == "school":
-            schools = [("Budapest enter 1,"), ("Miskolc 2,"), ("Krakow 3")]
+            schools = ["Budapest enter 1,", "Miskolc 2,", "Krakow 3"]
             print("For Codecool", end="")
             for school in schools:
-                print(" {0}".format(school), end="")
+                print(" {}".format(school), end="")
         elif filterby == "interview":
             interview_slots = InterviewSlot.select().where(InterviewSlot.status == False)
             print("Reserved interview slots (enter interview id number):")
@@ -185,7 +185,7 @@ class Applicant(BaseModel):
                     print("{} {}, {}: ".format(applicant.first_name, applicant.last_name, filterby), end="")
 
                     if filterby == "school":
-                        print(applicant.school.id)
+                        print('Codecool {}'.format(applicant.school.location))
                     elif filterby == "interview":
                         if applicant.interview.date:
                             print("{}".format(applicant.interview.date))
@@ -206,7 +206,6 @@ class Applicant(BaseModel):
                         for a in applicants:
                             print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
                                                        interview.date, a.first_name, a.last_name))
-
 
 
 class Question(BaseModel):
