@@ -127,28 +127,28 @@ class Applicant(BaseModel):
 
     @classmethod
     def application_details(cls):
-        input_app_code = input("Please enter your application code: ")
+        input_app_code = input("\nPlease enter your application code: ")
         applicant = cls.select().where(cls.application_code == input_app_code).get()
         if applicant:
-            print("Hello, {} {}! Your status is '{}' in Codecool {}"
+            print("\nHello, {} {}! Your status is '{}' in Codecool {}"
                   .format(applicant.first_name, applicant.last_name, applicant.status, applicant.school.location))
         else:
-            print("Not a valid application code.")
+            print("\nNot a valid application code.")
 
     @classmethod
     def interview_details(cls):
-        your_app_code = input("Please enter your application code: ")
+        your_app_code = input("\nPlease enter your application code: ")
         applicant = cls.select().where(cls.application_code == your_app_code).get()
         if applicant:
             try:
                 full_name = "{} {}".format(applicant.interview.mentor.first_name,
                                            applicant.interview.mentor.last_name)
-                print("Hello, {} {}! Your interview is with {} at {} in Codecool {}.".format(applicant.first_name,
+                print("\nHello, {} {}! Your interview is with {} at {} in Codecool {}.".format(applicant.first_name,
                       applicant.last_name, full_name, applicant.interview.date, applicant.school.location))
             except:
-                print("No interview date yet.")
+                print("\nNo interview date yet.")
         else:
-            print("Not a valid application code.")
+            print("\nNot a valid application code.")
 
     @staticmethod
     def filter_applicants(filterby):
@@ -158,20 +158,20 @@ class Applicant(BaseModel):
             schools = [("Budapest enter 1,"), ("Miskolc 2,"), ("Krakow 3")]
             print("For Codecool", end="")
             for school in schools:
-                print(" {0}".format(school), end="")
+                print("\n {0}".format(school), end="")
         elif filterby == "interview":
             interview_slots = InterviewSlot.select().where(InterviewSlot.status == False)
-            print("Reserved interview slots (enter interview id number):")
+            print("\nReserved interview slots (enter interview id number):")
             for i in interview_slots:
                 print(i.id, i.date)
         elif filterby == "mentor":
             mentors = Mentor.select().where(Mentor.id > 0)
-            print("Mentors (enter mentor id number):")
+            print("\nMentors (enter mentor id number):")
             for i in mentors:
                 print(i.id, i.first_name, i.last_name)
 
         # asking for the data tha user wants to see
-        exact_filter = input("\nPlease enter your parameter: \n")
+        exact_filter = input("\nPlease enter your parameter: ")
 
         # printing matches
         try:
@@ -182,7 +182,7 @@ class Applicant(BaseModel):
                 query = Applicant.select().where(connect == exact_filter)
                 for applicant in query:
                     # print the common stuff
-                    print("{} {}, {}: ".format(applicant.first_name, applicant.last_name, filterby), end="")
+                    print("\n{} {}, {}: ".format(applicant.first_name, applicant.last_name, filterby), end="")
 
                     if filterby == "school":
                         print(applicant.school.id)
@@ -190,7 +190,7 @@ class Applicant(BaseModel):
                         if applicant.interview.date:
                             print("{}".format(applicant.interview.date))
                         else:
-                            print("No interview date yet.")
+                            print("\nNo interview date yet.")
                     else:
                         print("{}".format(exact_filter))
 
@@ -204,9 +204,8 @@ class Applicant(BaseModel):
                     for interview in all_int:
                         applicants = Applicant.select().where(Applicant.interview == interview.id)
                         for a in applicants:
-                            print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
-                                                       interview.date, a.first_name, a.last_name))
-
+                            print("\n{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
+                                                             interview.date, a.first_name, a.last_name))
 
 
 class Question(BaseModel):
