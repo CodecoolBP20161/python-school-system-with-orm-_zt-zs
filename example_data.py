@@ -53,7 +53,7 @@ miskolc_interview = InterviewSlot.create(school=codecool_miskolc, mentor=attila,
 miskolc_interview2 = InterviewSlot.create(school=codecool_miskolc, mentor=attila, date='2016-09-01 11:00')
 miskolc_interview3 = InterviewSlot.create(school=codecool_miskolc, mentor=attila, date='2016-09-01 13:00')
 miskolc_interview4 = InterviewSlot.create(school=codecool_miskolc, mentor=attila, date='2016-09-02 10:00')
-miskolc_interview5 = InterviewSlot.create(school=codecool_miskolc, mentor=attila, date='2016-09-03 40:00')
+miskolc_interview5 = InterviewSlot.create(school=codecool_miskolc, mentor=attila, date='2016-09-03 14:00')
 miskolc_interview6 = InterviewSlot.create(school=codecool_miskolc, mentor=attila, date='2016-09-04 11:00')
 krakow_interview = InterviewSlot.create(school=codecool_krakow, mentor=matheusz, date='2016-09-01 10:00')
 krakow_interview2 = InterviewSlot.create(school=codecool_krakow, mentor=matheusz, date='2016-09-01 11:00')
