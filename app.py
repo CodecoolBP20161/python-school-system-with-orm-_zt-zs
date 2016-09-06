@@ -29,18 +29,19 @@ def main():
 
 @app.route('/registration_route', methods=['GET', 'POST'])
 def registrate():
+    cities_to_display = []
+    for city in City.select():
+        cities_to_display.append(city.all_cities)
     if (request.method == 'POST' and request.form["first_name"] and request.form["last_name"] and
         request.form["email"] and request.form["city"]):
-        new_applicant = Applicant.create(
+        Applicant.create(
             first_name=request.form["first_name"],
             last_name=request.form["last_name"],
             email=request.form["email"],
             city=request.form["city"])
-        # new_applicant.save()
         return redirect('/')
     else:
-        # return 'Registration form goes here'
-        return render_template('registration.html')
+        return render_template('registration.html', cities=cities_to_display)
 
 
 if __name__ == '__main__':
