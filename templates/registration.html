@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Registration</title>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
-    <body>
-        <form action="/registration_route" method="post" onsubmit="success()">
-            <p>
-                First name:<br>
-                <input type="text" name="first_name" pattern="(^[A-Z].*)([a-z].*)" title="Please enter only letters, and start with a capital one.">
-            </p>
-            <p>
-                Last name:<br>
-                <input type="text" name="last_name" pattern="(^[A-Z].*)([a-z].*)" title="Please enter only letters, and start with a capital one.">
-            </p>
-            <p>
-                E-mail address:<br>
-                <input type="email" name="email">
-            </p>
-            <p>
-                City you currently live in:
-            <br>
-                <select name="city">
-                {% for city in cities %}
-                <option>{{ city }}</option>
-                {% endfor %}
-            </select>
-            </p>
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<form action="/registration_route" method="post">
+    {% if error_message %}
+    <div name="error_message">{{ error_message }}</div>
+    {% endif %}
+        First name:<br>
+        <input type="text" name="first_name" pattern="(^[A-Z].*)([a-z].*)"
+               title="Please enter only letters, and start with a capital one." value="{{ first_name }}">
+    </p>
+    <p>
+        Last name:<br>
+        <input type="text" name="last_name" pattern="(^[A-Z].*)([a-z].*)"
+               title="Please enter only letters, and start with a capital one." value="{{ last_name }}">
+    </p>
+    <p>
+        E-mail address:<br>
+        <input type="email" name="email">
+    </p>
+    <p>
+        City you currently live in:
+        <br>
+        <select name="city">
+            {% for city in cities %}
+            <option>{{ city }}</option>
+            {% endfor %}
+        </select>
+    </p>
 
-            <input type="submit" value="Submit">
-        </form>
-    <script>
-        function success() {
-    alert("Successful registration!");
-}
-    </script>
-    </body>
+    <input type="submit" value="Submit">
+</form>
+</body>
 </html>
