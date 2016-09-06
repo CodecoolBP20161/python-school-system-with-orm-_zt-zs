@@ -5,7 +5,7 @@ import requests
 
 DEBUG = True
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='images')
 app.config.from_object(__name__)
 
 
@@ -24,7 +24,7 @@ def after_request(response):
 
 @app.route('/')
 def main():
-    return render_template('main.html')
+    return render_template('index.html')
 
 
 @app.route('/registration_route', methods=['GET', 'POST'])
