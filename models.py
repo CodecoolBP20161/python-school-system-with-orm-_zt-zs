@@ -47,7 +47,7 @@ class School(BaseModel):
 
 class City(BaseModel):
     all_cities = CharField()
-    cc_cities = ForeignKeyField(School)
+    cc_cities = ForeignKeyField(School, related_name="school")
 
 
 class Mentor(BaseModel):
