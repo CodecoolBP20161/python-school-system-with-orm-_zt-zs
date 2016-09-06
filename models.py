@@ -97,7 +97,7 @@ class InterviewSlot(BaseModel):
 class Applicant(BaseModel):
     first_name = CharField()
     last_name = CharField()
-    email = CharField()
+    email = CharField(unique=True)
     city = CharField()
     status = CharField(default="New")
     interview = ForeignKeyField(InterviewSlot, related_name='applicant', null=True)
