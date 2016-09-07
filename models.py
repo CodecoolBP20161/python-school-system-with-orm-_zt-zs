@@ -47,7 +47,7 @@ class School(BaseModel):
 
 class City(BaseModel):
     all_cities = CharField()
-    cc_cities = ForeignKeyField(School)
+    cc_cities = ForeignKeyField(School, related_name="school")
 
 
 class Mentor(BaseModel):
@@ -97,7 +97,7 @@ class InterviewSlot(BaseModel):
 class Applicant(BaseModel):
     first_name = CharField()
     last_name = CharField()
-    email = CharField()
+    email = CharField(unique=True)
     city = CharField()
     status = CharField(default="New")
     interview = ForeignKeyField(InterviewSlot, related_name='applicant', null=True)
