@@ -38,7 +38,7 @@ def get_cities():
     cities_to_display = []
     for city in City.select():
         cities_to_display.append(city.all_cities)
-    return sorted(cities_to_display)
+    return set(sorted(cities_to_display))
 
 
 @app.route('/registration_route', methods=['POST'])
