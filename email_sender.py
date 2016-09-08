@@ -21,59 +21,61 @@ class Email_sender:
                                      applicant.application_code, applicant.status], applicant.email))
         return applicant_datas
 
-    def send_it(self):
-        data = self.get_applicant_data()
-        # sender = input("Please enter your email address: ")
+    @classmethod
+    def send_it(cls):
+        data = cls.get_applicant_data()
+
+        # hard coded sender infos
         sender = "atelon09@gmail.com"
-        # password = getpass()
         password = "10qwert01"
+
+        # # arbitrary sender infos
+        # sender = input("Please enter your email address: ")
+        # password = getpass()
+
         count = 0
-
-        you = "atelon09@gmail.com"
-
+        cls.recipient = "atelon09@gmail.com"
 
         try:
-            for d in data:
-                html = """\
+            cls.subject = "Your Application"
+            for applicant in data:
+                html_template = """\
                 <html>
                     <head>
                         <title>GTFO!</title>
                     </head>
-                    <body>
+                    <body style="text-align: justify;">
                         <img src="https://github.com/CodecoolBP20161/python-school-system-with-orm-_zt-zs/blob/email_html/static/cc_logo-large.png?raw=true">
-                        <p>Hey u peace of shit loser {} {} !</p>
+                        <p>Hey u peace of shit loser <strong>{} {}</strong> !</p>
                         <br>
-                        <p>How did u even got the idea to apply to the mighty Codecool {} ?? Were u out of ur stupid mind?</p>
-                        <p>Ur status is obv '{}' . Forget about ur ridiculous name, from now on ur called {}.</p>
+                        <p>How did u even got the idea to apply to the mighty <strong>Codecool {}</strong>?? Were u out of ur stupid mind?</p>
+                        <p>Ur status is obv '<strong>{}</strong>' . Forget about ur ridiculous name, from now on ur called <strong>{}</strong>.</p>
                         <p>Get ur shit together, and if u can find some courage in ur meaningless self for once in ur pathetic life,</p>
                         <p>and if for some unthinkable reason we decide u worth it were gonna send u an interview date later, so u can</p>
-                        <p>show us ur ugly face at Codecool {} .</p><br>
+                        <p>show us ur ugly face at <strong>Codecool {}</strong>.</p><br>
                         <br>
                         <p>Until then, continue to waste our precious air for the last time,</p>
-                        <p>Trainers at Codecool {}</p>
+                        <p>Trainers at <strong>Codecool {}</strong></p>
                     </body>
                 </html>
-                """.format(d[0][0], d[0][1], d[0][2], d[0][4], d[0][3], d[0][2], d[0][2])
+                """.format(applicant[0][0], applicant[0][1], applicant[0][2], applicant[0][4], applicant[0][3],
+                           applicant[0][2], applicant[0][2])
 
-                part2 = MIMEText(html, 'html')
-                # msg = "\r\n".join(["From: {}".format(sender), "To: {}".format(self.recipient),
-                #                        "Subject: {}".format(self.subject), "{}".format(html)])
-                msg = MIMEMultipart('alternative')
-                msg['Subject'] = "Your Application"
+                html_body = MIMEText(html_template, 'html')
+                msg = MIMEMultipart()
+                msg['Subject'] = cls.subject
                 msg['From'] = sender
-                msg['To'] = you
+                msg['To'] = cls.recipient
                 if msg:
-                    msg.attach(part2)
+                    msg.attach(html_body)
                     server = smtplib.SMTP('smtp.gmail.com:587')
                     server.ehlo()
                     server.starttls()
                     server.login(sender, password)
-                    server.sendmail(sender, you, msg.as_string())
+                    server.sendmail(sender, cls.recipient, msg.as_string())
                     server.quit()
                     count += 1
-
+        except:
+            print("An error occured.")
         finally:
             print("{} email(s) successfully sent.".format(count))
-
-
-test.send_it()
