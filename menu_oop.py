@@ -47,7 +47,7 @@ admin_menu = Menu(
     ['Assign school and application code to applicant(s), send email about it', 'Assign interview to applicant(s) with application code',
      'Get applications details by filter'],
     [['Applicant.update_school()', 'Applicant.detect()',
-      'print("School and application code assigned to applicant(s).")', 'Email_sender.send_it()'],
+      'print("School and application code assigned to applicant(s).")', 'Email_sender.send_it(Email_sender.get_applicant_data(), "Your application")'],
      ['InterviewSlot.give_interview()',
       '''print("Interview date assigned to applicant(s). Status updated to 'In progress'.")'''],
      ['applicant_filters.print_menu()']]

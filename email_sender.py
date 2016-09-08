@@ -6,11 +6,9 @@ from email.mime.text import MIMEText
 
 
 class Email_sender:
-
     def __init__(self, subject, recipient):
         self.subject = subject
         self.recipient = recipient
-
 
     @staticmethod
     def get_applicant_data():
@@ -21,25 +19,12 @@ class Email_sender:
                                      applicant.application_code, applicant.status], applicant.email))
         return applicant_datas
 
+
     @classmethod
-    def send_it(cls):
-        data = cls.get_applicant_data()
-
-        # hard coded sender infos
-        sender = "atelon09@gmail.com"
-        password = "10qwert01"
-
-        # # arbitrary sender infos
-        # sender = input("Please enter your email address: ")
-        # password = getpass()
-
-        count = 0
-        cls.recipient = "atelon09@gmail.com"
-
+    def application_body(cls, applicant):
         try:
             cls.subject = "Your Application"
-            for applicant in data:
-                html_template = """\
+            html_template = """\
                 <html>
                     <head>
                         <title>GTFO!</title>
@@ -60,22 +45,49 @@ class Email_sender:
                 </html>
                 """.format(applicant[0][0], applicant[0][1], applicant[0][2], applicant[0][4], applicant[0][3],
                            applicant[0][2], applicant[0][2])
+            html_body = MIMEText(html_template, 'html')
+            return html_body
+        except:
+            pass
 
-                html_body = MIMEText(html_template, 'html')
+    @classmethod
+    def send_it(cls, data, subject):
+        cls.subject = subject
+        count = 0
+        try:
+            for applicant in data:
+
+                # hard coded sender infos
+                sender = "atelon09@gmail.com"
+                password = "10qwert01"
+
+                # # arbitrary sender infos
+                # sender = input("Please enter your email address: ")
+                # password = getpass()
+
+                cls.recipient = "atelon09+{}@gmail.com".format(applicant[1])
                 msg = MIMEMultipart()
                 msg['Subject'] = cls.subject
                 msg['From'] = sender
                 msg['To'] = cls.recipient
-                if msg:
-                    msg.attach(html_body)
-                    server = smtplib.SMTP('smtp.gmail.com:587')
-                    server.ehlo()
-                    server.starttls()
-                    server.login(sender, password)
-                    server.sendmail(sender, cls.recipient, msg.as_string())
-                    server.quit()
-                    count += 1
-        except:
-            print("An error occured.")
+
+                html_body = cls.application_body(applicant)
+
+                sender = "atelon09@gmail.com"
+                password = "10qwert01"
+
+                cls.recipient = "atelon09@gmail.com"
+                try:
+                    if msg:
+                        msg.attach(html_body)
+                        server = smtplib.SMTP('smtp.gmail.com:587')
+                        server.ehlo()
+                        server.starttls()
+                        server.login(sender, password)
+                        server.sendmail(sender, cls.recipient, msg.as_string())
+                        server.quit()
+                        count += 1
+                except:
+                    print("An error occured.")
         finally:
             print("{} email(s) successfully sent.".format(count))
