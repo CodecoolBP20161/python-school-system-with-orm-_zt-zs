@@ -1,4 +1,5 @@
 from models import *
+from email_sender import *
 
 
 class Menu:
@@ -43,12 +44,12 @@ applicant_filters = Menu(
 )
 
 admin_menu = Menu(
-    ['Assign school and application code to applicant(s)', 'Assign interview to applicant(s) with application code',
+    ['Assign school and application code to applicant(s), send email about it', 'Assign interview to applicant(s) with application code',
      'Get applications details by filter'],
     [['Applicant.update_school()', 'Applicant.detect()',
-      'print("School and application code assigned to applicant(s).")'],
+      'print("School and application code assigned to applicant(s).")', 'Email_sender.send_it(Email_sender.get_applicant_data(), "application", "Your application")'],
      ['InterviewSlot.give_interview()',
-      '''print("Interview date assigned to applicant(s). Status updated to 'In progress'.")'''],
+      '''print("Interview date assigned to applicant(s). Status updated to 'In progress'.")''', 'Email_sender.send_it(Email_sender.get_interview_data(), "interview")'],
      ['applicant_filters.print_menu()']]
 )
 
