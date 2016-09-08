@@ -53,8 +53,8 @@ def validate_registration():
         except IntegrityError:
             error_message = "email already exists"
             return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email=error_message,
-                                   first_name=request.form["first_name"], last_name=request.form["last_name"], city=
-                                   request.form["city"])
+                                   first_name=request.form["first_name"], last_name=request.form["last_name"],
+                                   city=request.form["city"])
     return redirect('/')
 
 

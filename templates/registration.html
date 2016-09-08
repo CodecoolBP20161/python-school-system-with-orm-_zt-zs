@@ -5,25 +5,27 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<br>
-<br>
-<br>
+    <p>
+        <br>
+        <img src="../images/logo.png" height="16" width="160">
+        <h3>REGISTRATION</h3>
+    </p>
 <form action="/registration_route" method="post">
-    <p>First name:
+    <p><strong>First name:</strong>
         <br>
         <input type="text" name="first_name"pattern="(^[A-Z].*)([a-z].*)([a-zA-Z])" title="Please enter only letters, and start with a capital one."
                value="{{ first_name }}">
     </p>
-    <p>Last name:
+    <p><strong>Last name:</strong>
         <br>
         <input type="text" name="last_name" pattern="(^[A-Z].*)([a-z].*)([a-zA-Z])"
                title="Please enter only letters, and start with a capital one." value="{{ last_name }}">
     </p>
-    <p>E-mail address:
+    <p><strong>E-mail address:</strong>
         <br>
         <input type="email" name="email" title="Unique email required."  placeholder="{{ email }}">
     </p>
-    <p>City you currently live in:
+    <p><strong>City you currently live in:</strong>
         <br>
         <select name="city">
             <option selected value="{{ city }}">{{ city }}</option>
