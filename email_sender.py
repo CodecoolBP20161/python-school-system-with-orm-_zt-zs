@@ -31,7 +31,7 @@ class Email_sender:
                     </head>
                     <body style="text-align: justify;">
                         <img src="https://github.com/CodecoolBP20161/python-school-system-with-orm-_zt-zs/blob/email_html/static/cc_logo-large.png?raw=true">
-                        <p>Hey u peace of shit loser <strong>{} {}</strong> !</p>
+                        <p>Hey u peace of shit loser <strong>{} {}</strong>!</p>
                         <br>
                         <p>How did u even got the idea to apply to the mighty <strong>Codecool {}</strong>?? Were u out of ur stupid mind?</p>
                         <p>Ur status is obv '<strong>{}</strong>' . Forget about ur ridiculous name, from now on ur called <strong>{}</strong>.</p>
@@ -50,12 +50,55 @@ class Email_sender:
         except:
             pass
 
+    @staticmethod
+    def get_interview_data():
+        interviews = list(Applicant.select().where(Applicant.status == "In progress"))
+        applicant_datas = []
+        for applicant in interviews:
+            applicant_datas.append(([applicant.first_name, applicant.last_name, applicant.school.location,
+                                     applicant.application_code, applicant.status, applicant.interview.date],
+                                    applicant.email))
+        return applicant_datas
+
     @classmethod
-    def send_it(cls, data, subject):
-        cls.subject = subject
+    def interview_body(cls, applicant):
+        # data = get_interview_data()
+        try:
+            cls.subject = "Your interview details at Codecool {}".format(applicant[0][2])
+            html_template = """\
+                        <html>
+                            <head>
+                                <title>GTFO!</title>
+                            </head>
+                            <body style="text-align: justify;">
+                                <img src="https://github.com/CodecoolBP20161/python-school-system-with-orm-_zt-zs/blob/email_html/static/cc_logo-large.png?raw=true">
+                                <br>
+                                <p>Hey u peace of shit loser <strong>{} {}</strong>!</p>
+                                <br>
+                                <p>Your interview date at <strong>Codecool {}</strong> is: <strong>{}</strong>.</p>
+                                <br>
+                                <p>Until then, continue to waste our precious air for the last time,</p>
+                                <p>Trainers at <strong>Codecool {}</strong></p>
+                            </body>
+                        </html>
+                        """.format(applicant[0][0], applicant[0][1], applicant[0][2], applicant[0][5], applicant[0][2])
+            html_body = MIMEText(html_template, 'html')
+            return html_body
+        except:
+            pass
+
+    @classmethod
+    def send_it(cls, data, body, subject=None):
+        if subject is not None:
+            cls.subject = subject
         count = 0
         try:
             for applicant in data:
+
+                if body == "application":
+                    html_body = cls.application_body(applicant)
+                elif body == "interview":
+                    html_body = cls.interview_body(applicant)
 
                 # hard coded sender infos
                 sender = "atelon09@gmail.com"
@@ -65,18 +108,13 @@ class Email_sender:
                 # sender = input("Please enter your email address: ")
                 # password = getpass()
 
-                cls.recipient = "atelon09+{}@gmail.com".format(applicant[1])
+                # cls.recipient = "atelon09+{}@gmail.com".format(applicant[1])
+                cls.recipient = "atelon09@gmail.com"
+
                 msg = MIMEMultipart()
                 msg['Subject'] = cls.subject
                 msg['From'] = sender
                 msg['To'] = cls.recipient
-
-                html_body = cls.application_body(applicant)
-
-                sender = "atelon09@gmail.com"
-                password = "10qwert01"
-
-                cls.recipient = "atelon09@gmail.com"
                 try:
                     if msg:
                         msg.attach(html_body)
