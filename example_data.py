@@ -22,13 +22,13 @@ krakow = City.create(all_cities="Krakow", cc_cities=codecool_krakow)
 warsaw = City.create(all_cities="Warsaw", cc_cities=codecool_krakow)
 
 
-kisattila = Applicant.create(first_name="Attila", last_name="Kiss", email="kattila@trdsd.com", city="Budapest")
-jakabanna = Applicant.create(first_name="Anna", last_name="Jakab", email="annak_j@trdsd.com", city="Miskolc")
-nagyemese = Applicant.create(first_name="Emese", last_name="Nagy", email="emesenagy01@trdsd.com", city="Eger")
-feketetibor = Applicant.create(first_name="Tibor", last_name="Fekete", email="tibif@trdsd.com", city="Pécs")
-matheuszzcyl = Applicant.create(first_name="Matheusz", last_name="Zcyl", email="zmatheusz@trdsd.com", city="Krakow")
-barnajanka = Applicant.create(first_name="Janka", last_name="Barna", email="jankab90@trdsd.com",  city="Szeged")
-johndoe = Applicant.create(first_name="John", last_name="Doe", email="thisismyemail@trdsd.com", city="Warsaw")
+kisattila = Applicant.create(first_name="Attila", last_name="Kiss", email="atelon09+kattila@gmail.com", city="Budapest")
+jakabanna = Applicant.create(first_name="Anna", last_name="Jakab", email="atelon09+annak_j@gmail.com", city="Miskolc")
+nagyemese = Applicant.create(first_name="Emese", last_name="Nagy", email="atelon09+emesenagy01@gmail.com", city="Eger")
+feketetibor = Applicant.create(first_name="Tibor", last_name="Fekete", email="atelon09+tibif@gmail.com", city="Pécs")
+matheuszzcyl = Applicant.create(first_name="Matheusz", last_name="Zcyl", email="atelon09+zmatheusz@gmail.com", city="Krakow")
+barnajanka = Applicant.create(first_name="Janka", last_name="Barna", email="atelon09+jankab90@gmail.com",  city="Szeged")
+johndoe = Applicant.create(first_name="John", last_name="Doe", email="atelon09+thisismyemail@gmail.com", city="Warsaw")
 
 
 miki = Mentor.create(first_name="Miki", last_name="Beöthy", school=codecool_bp)
