@@ -55,6 +55,11 @@ def validate_registration():
             return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email=error_message,
                                    first_name=request.form["first_name"], last_name=request.form["last_name"],
                                    city=request.form["city"])
+    else:
+        error = True
+        return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email=request.form["email"],
+                               first_name=request.form["first_name"], last_name=request.form["last_name"],
+                               city=request.form["city"], error=error)
     return redirect('/')
 
 
