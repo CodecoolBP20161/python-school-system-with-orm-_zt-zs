@@ -108,8 +108,7 @@ class Email_sender:
                 # sender = input("Please enter your email address: ")
                 # password = getpass()
 
-                # cls.recipient = "atelon09+{}@gmail.com".format(applicant[1])
-                cls.recipient = "atelon09@gmail.com"
+                cls.recipient = applicant[1]
 
                 msg = MIMEMultipart()
                 msg['Subject'] = cls.subject
