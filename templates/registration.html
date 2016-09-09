@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html style="text-align: center;">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <p>
+        <br>
+        <img src="../images/logo.png" height="16" width="160">
+        <h3>REGISTRATION</h3>
+    </p>
+    {% if error %}
+    <p>Please fill in all the data!</p>
+    {% endif %}
+<form action="/registration_route" method="post">
+    <p><strong>First name:</strong>
+        <br>
+        <input type="text" name="first_name"pattern="(^([^0-9]*)$)" title="Please enter only letters, and start with a capital one."
+               value="{{ first_name }}">
+    </p>
+    <p><strong>Last name:</strong>
+        <br>
+            <input type="text" name="last_name" pattern="(^([^0-9]*)$)"
+               title="Please enter only letters, and start with a capital one." value="{{ last_name }}">
+    </p>
+    <p><strong>E-mail address:</strong>
+        <br>
+        <input type="email" name="email" title="Unique email required."  placeholder="{{ email }}">
+    </p>
+    <p><strong>City you currently live in:</strong>
+        <br>
+        <select name="city">
+            <option selected value="{{ city }}">{{ city }}</option>
+            {% for city in cities %}
+            <option>{{ city }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

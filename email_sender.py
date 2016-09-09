@@ -1,63 +1,131 @@
 import smtplib
 from getpass import getpass
 from models import *
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 class Email_sender:
     def __init__(self, subject, recipient):
         self.subject = subject
         self.recipient = recipient
-        self.body = Datas.create_email_body()
 
-    def send_it(self):
-        sender = input("Please enter your email address: ")
-        password = getpass()
+    @staticmethod
+    def get_applicant_data():
+        new_applicants = list(Applicant.select().where(Applicant.status == "New"))
+        applicant_datas = []
+        for applicant in new_applicants:
+            applicant_datas.append(([applicant.first_name, applicant.last_name, applicant.school.location,
+                                     applicant.application_code, applicant.status], applicant.email))
+        return applicant_datas
+
+
+    @classmethod
+    def application_body(cls, applicant):
+        try:
+            cls.subject = "Your Application"
+            html_template = """\
+                <html>
+                    <head>
+                        <title>GTFO!</title>
+                    </head>
+                    <body style="text-align: justify;">
+                        <img src="https://github.com/CodecoolBP20161/python-school-system-with-orm-_zt-zs/blob/email_html/static/cc_logo-large.png?raw=true">
+                        <p>Hey u peace of shit loser <strong>{} {}</strong>!</p>
+                        <br>
+                        <p>How did u even got the idea to apply to the mighty <strong>Codecool {}</strong>?? Were u out of ur stupid mind?</p>
+                        <p>Ur status is obv '<strong>{}</strong>' . Forget about ur ridiculous name, from now on ur called <strong>{}</strong>.</p>
+                        <p>Get ur shit together, and if u can find some courage in ur meaningless self for once in ur pathetic life,</p>
+                        <p>and if for some unthinkable reason we decide u worth it were gonna send u an interview date later, so u can</p>
+                        <p>show us ur ugly face at <strong>Codecool {}</strong>.</p><br>
+                        <br>
+                        <p>Until then, continue to waste our precious air for the last time,</p>
+                        <p>Trainers at <strong>Codecool {}</strong></p>
+                    </body>
+                </html>
+                """.format(applicant[0][0], applicant[0][1], applicant[0][2], applicant[0][4], applicant[0][3],
+                           applicant[0][2], applicant[0][2])
+            html_body = MIMEText(html_template, 'html')
+            return html_body
+        except:
+            pass
+
+    @staticmethod
+    def get_interview_data():
+        interviews = list(Applicant.select().where(Applicant.status == "In progress"))
+        applicant_datas = []
+        for applicant in interviews:
+            applicant_datas.append(([applicant.first_name, applicant.last_name, applicant.school.location,
+                                     applicant.application_code, applicant.status, applicant.interview.date],
+                                    applicant.email))
+        return applicant_datas
+
+    @classmethod
+    def interview_body(cls, applicant):
+        # data = get_interview_data()
+        try:
+            cls.subject = "Your interview details at Codecool {}".format(applicant[0][2])
+            html_template = """\
+                        <html>
+                            <head>
+                                <title>GTFO!</title>
+                            </head>
+                            <body style="text-align: justify;">
+                                <img src="https://github.com/CodecoolBP20161/python-school-system-with-orm-_zt-zs/blob/email_html/static/cc_logo-large.png?raw=true">
+                                <br>
+                                <p>Hey u peace of shit loser <strong>{} {}</strong>!</p>
+                                <br>
+                                <p>Your interview date at <strong>Codecool {}</strong> is: <strong>{}</strong>.</p>
+                                <br>
+                                <p>Until then, continue to waste our precious air for the last time,</p>
+                                <p>Trainers at <strong>Codecool {}</strong></p>
+                            </body>
+                        </html>
+                        """.format(applicant[0][0], applicant[0][1], applicant[0][2], applicant[0][5], applicant[0][2])
+            html_body = MIMEText(html_template, 'html')
+            return html_body
+        except:
+            pass
+
+    @classmethod
+    def send_it(cls, data, body, subject=None):
+        if subject is not None:
+            cls.subject = subject
         count = 0
         try:
-            for b in self.body:
-                msg = "\r\n".join(["From: {}".format(sender), "To: {}".format(self.recipient),
-                                   "Subject: {}".format(self.subject), "{}".format(b)])
+            for applicant in data:
+
+                if body == "application":
+                    html_body = cls.application_body(applicant)
+                elif body == "interview":
+                    html_body = cls.interview_body(applicant)
+
+                # hard coded sender infos
+                sender = "atelon09@gmail.com"
+                password = "10qwert01"
+
+                # # arbitrary sender infos
+                # sender = input("Please enter your email address: ")
+                # password = getpass()
+
+                # cls.recipient = "atelon09+{}@gmail.com".format(applicant[1])
+                cls.recipient = "atelon09@gmail.com"
+
+                msg = MIMEMultipart()
+                msg['Subject'] = cls.subject
+                msg['From'] = sender
+                msg['To'] = cls.recipient
                 try:
                     if msg:
+                        msg.attach(html_body)
                         server = smtplib.SMTP('smtp.gmail.com:587')
                         server.ehlo()
                         server.starttls()
                         server.login(sender, password)
-                        server.sendmail(sender, self.recipient, msg)
+                        server.sendmail(sender, cls.recipient, msg.as_string())
                         server.quit()
                         count += 1
                 except:
-                    print("An error occured, email not sent.")
+                    print("An error occured.")
         finally:
-            print("{} email(s) successfully sent to {}.".format(count, self.recipient))
-
-
-class Datas:
-    def __init__(self, first_name, last_name, application_code, school, status):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.application_code = application_code
-        self.school = school
-        self.status = status
-
-    @staticmethod
-    def get_data():
-        email_list = []
-        applicants = list(Applicant.select())
-        for a in applicants:
-            email_list.append(Datas(a.first_name, a.last_name, a.application_code, a.school.location, a.status))
-        return email_list
-
-    @staticmethod
-    def create_email_body():
-        bodies = []
-        for person in Datas.get_data():
-            body = "Hi {} {}! Your application code is {} in Codecool {}, and your status is {}.".format(person.first_name,
-                                                                                                         person.last_name, person.application_code, person.school, person.status)
-            bodies.append(body)
-        return bodies
-
-
-
-test = Email_sender("testing", "atelon09@gmail.com")
-test.send_it()
+            print("{} email(s) successfully sent.".format(count))
