@@ -67,5 +67,10 @@ def validate_registration():
 def display_infos():
     return render_template("info.html")
 
+
+@app.route('/contact', methods=['GET'])
+def contacting():
+    return render_template("contact.html")
+
 if __name__ == '__main__':
     app.run()
