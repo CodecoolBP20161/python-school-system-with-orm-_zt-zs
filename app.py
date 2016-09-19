@@ -68,4 +68,4 @@ def display_infos():
     return render_template("info.html")
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5001)
