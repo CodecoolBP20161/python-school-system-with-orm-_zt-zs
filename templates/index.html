@@ -7,29 +7,30 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 </head>
-    <body>
+<body>
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool" width="30px" height="30px"></a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href="/registration_route">Registration</a></li>
-        <li><a href="/info">Info</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool"
+                                                  width="30px" height="30px"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/"> <span class="glyphicon glyphicon-home"> Home</span></a></li>
+                <li><a href="/registration_route">Registration</a></li>
+                <li><a href="/info">Info</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Contact</a></li>
 
-      </ul>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 <div class="container">
 
@@ -37,15 +38,16 @@
     <div class="col-sm-8">
         <div class="container-fluid">
 
-        <h1><img src="{{ url_for('static', filename='logo.png') }}" width="20%" height="30%" alt="Codecool"</h1>
-        <p>Dear applicant,<br>
-        <h2>You can register <a href="/registration_route">here</a> to became an awesome codecooler like him:</h2>
-        <img src="{{ url_for('static', filename='handsome.JPG') }}" width="50%" height="60%" alt="handsome"</p>
-        <p>(I'm sorry, but you can't be so handsome like him :/)</p>
+            <img src="{{ url_for('static', filename='logo-large.png') }}" height="80%" width="80%" alt="Codecool">
+            <br>
+            <h2>Dear applicant,</h2>
+            <h2>You can register <button type="button" class="btn btn-link btn-lg"><a href="/registration_route">here</a></button> to became an awesome codecooler like him:</h2>
+            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="50%" height="60%" alt="handsome"</h2>
+            <p>(I'm sorry, but you can't be so handsome like him :/)</p>
+        </div>
     </div>
-            </div>
 
     <div class="col-sm-2"></div>
 
-    </body>
+</body>
 </html>
