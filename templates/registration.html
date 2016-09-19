@@ -2,9 +2,39 @@
 <html style="text-align: center;">
 <head>
     <title>Registration</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-<body>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"></head>
+    <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool" width="30px" height="30px"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="/registration_route">Registration</a></li>
+        <li><a href="#">Info</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Contact</a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="container-fluid">
     <p>
         <br>
         <img src="../images/logo.png" height="16" width="160">
@@ -14,6 +44,9 @@
     <p>Please fill in all the data!</p>
     {% endif %}
 <form action="/registration_route" method="post">
+  <div class="form-group">
+
+
     <p><strong>First name:</strong>
         <br>
         <input type="text" name="first_name"pattern="(^([^0-9]*)$)" title="Please enter only letters, and start with a capital one."
@@ -38,6 +71,12 @@
         </select>
     </p>
     <input type="submit" value="Submit">
+  </div>
 </form>
-</body>
+</div>
+            </div>
+
+    <div class="col-sm-2"></div>
+
+    </body>
 </html>
