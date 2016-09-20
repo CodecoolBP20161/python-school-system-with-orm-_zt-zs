@@ -67,5 +67,10 @@ def validate_registration():
 def display_infos():
     return render_template("info.html")
 
+
+@app.route('/mentor/login', methods=['GET'])
+def mentor_login():
+    return render_template('login.html')
+
 if __name__ == '__main__':
     app.run(port=5001)
