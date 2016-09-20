@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
-</head>
+    <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet"></head>
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -22,16 +22,16 @@
                                                   width="30px" height="30px"></a>        </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/"> <span class="glyphicon glyphicon-home"> Home</span></a></li>
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span>  Home</a></li>
                 <li><a href="/registration_route">Registration</a></li>
                 <li class="active"><a href="/info">Info</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                    <li><a href="#"> <span class="glyphicon glyphicon-user"> Login</span></a></li>
+                    <li><a href="#"> <span class="glyphicon glyphicon-log-in"> </span>  Login</a></li>
                 {% else %}
                     <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i></li>
-                    <li><a href="/"> <span class="glyphicon glyphicon-log-out"> Logout</span></a></li>
+                    <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
 
