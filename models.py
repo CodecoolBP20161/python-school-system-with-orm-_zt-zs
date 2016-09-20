@@ -54,6 +54,8 @@ class Mentor(BaseModel):
     first_name = CharField()
     last_name = CharField()
     school = ForeignKeyField(School)
+    email = CharField()
+    password = CharField()
 
     @classmethod
     def ask_name(cls):

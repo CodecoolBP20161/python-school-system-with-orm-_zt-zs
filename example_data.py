@@ -31,11 +31,11 @@ barnajanka = Applicant.create(first_name="Janka", last_name="Barna", email="atel
 johndoe = Applicant.create(first_name="John", last_name="Doe", email="atelon09+thisismyemail@gmail.com", city="Warsaw")
 
 
-miki = Mentor.create(first_name="Miki", last_name="Beöthy", school=codecool_bp)
-dani = Mentor.create(first_name="Dani", last_name="Salamon", school=codecool_bp)
-tomi = Mentor.create(first_name="Tomi", last_name="Tompa", school=codecool_bp)
-matheusz = Mentor.create(first_name="Matheusz", last_name="Ostafil", school=codecool_krakow)
-attila = Mentor.create(first_name="Attila", last_name="Molnár", school=codecool_miskolc)
+miki = Mentor.create(first_name="Miki", last_name="Beöthy", school=codecool_bp, email="atelon09+miki@gmail.com", password="1234")
+dani = Mentor.create(first_name="Dani", last_name="Salamon", school=codecool_bp, email="atelon09+dani@gmail.com", password="1234")
+tomi = Mentor.create(first_name="Tomi", last_name="Tompa", school=codecool_bp, email="atelon09+tomi@gmail.com", password="1234")
+matheusz = Mentor.create(first_name="Matheusz", last_name="Ostafil", school=codecool_krakow, email="atelon09+matheusz@gmail.com", password="1234")
+attila = Mentor.create(first_name="Attila", last_name="Molnár", school=codecool_miskolc, email="atelon09+attila@gmail.com", password="1234")
 
 
 bp_interview = InterviewSlot.create(school=codecool_bp, mentor=miki, date='2016-09-01 10:00')
