@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html style="text-align: center;">
 <head>
-    <title>Welcome</title>
+    <title>Registration</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet"></head>
+    <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+</head>
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -23,7 +24,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/"> <span class="glyphicon glyphicon-home"></span>  Home</a></li>
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span>  Home</a></li>
                 <li><a href="/registration_route">Registration</a></li>
                 <li><a href="/info">Info</a></li>
             </ul>
@@ -34,7 +35,7 @@
                     <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i></li>
                     <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
-                <li><a href="/contact">Contact</a></li>
+                <li class="active"><a href="/contact">Contact</a></li>
 
             </ul>
         </div>
@@ -46,17 +47,27 @@
     <div class="col-sm-8">
         <div class="container-fluid">
 
-            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%" alt="Codecool">
+
             <br>
-            <h2>Dear applicant,</h2>
-            <h2>You can register <button type="button" class="btn btn-link btn-lg"><a href="/registration_route">here</a></button> to became an awesome codecooler like him:</h2>
-            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="50%" height="60%" alt="handsome"</h2>
-            <p>(I'm sorry, but you can't be so handsome like him :/)</p>
+            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%" alt="Codecool">
+
+
+            <h1>Find Us</h1>
+  <ul class="list-group">
+                        <li class="list-group-item"><i class="fa fa-desktop" aria-hidden="true"></i> http://www.codecool.hu</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-map-marker"></span> 1065 Budapest, Nagymező utca 44.</li>
+                        <li class="list-group-item"><i class="fa fa-facebook-square" aria-hidden="true"></i> http://www.facebook.com/CodecoolOfficial/</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-phone"></span> +36 70 944-3402</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> hello@codecool.com</li>
+                    </ul>
+                </div>
         </div>
     </div>
 
+
     <div class="col-sm-2"></div>
 
-</div>
 </body>
+
+
 </html>

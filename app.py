@@ -72,5 +72,10 @@ def display_infos():
 def mentor_login():
     return render_template('login.html')
 
+
+@app.route('/contact', methods=['GET'])
+def contacting():
+    return render_template("contact.html")
+
 if __name__ == '__main__':
     app.run(port=5001)
