@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="text-align: center;">
+<html>
 <head>
     <title>Registration</title>
     <meta charset="utf-8">
@@ -32,43 +32,77 @@
             </div>
         </nav>
         <div class="container">
-            <p>
+            <div class="text-align: center">
                 <br>
                 <img src="../images/logo-large.png" height="35" width="300">
                 <h2>REGISTRATION</h2>
-            </p>
-            {% if error %}
-            <p>Please fill in all the data!</p>
-            {% endif %}
-            <form action="/registration_route" method="post">
-                <div class="form-inline">
-                    <p>
-                        <h4>First name:</h4>
-                        <input type="text" name="first_name" class="form-control" pattern="(^([^0-9]*)$)" title="Please enter only letters, and start with a capital one."
-                               value="{{ first_name }}">
-                    </p>
-                    <p>
-                        <h4>Last name:</h4>
-                        <input type="text" name="last_name" class="form-control" pattern="(^([^0-9]*)$)"
-                           title="Please enter only letters, and start with a capital one." value="{{ last_name }}">
-                    </p>
-                    <p>
-                        <h4>E-mail address:</h4>
-                        <input type="email" name="email" class="form-control" title="Unique email required."  placeholder="{{ email }}">
-                    </p>
-                    <p>
-                        <h4>City you currently live in:</h4>
-                        <div class="form-group">
-                          <select name="city" class="form-control">
-                            <option selected value="{{ city }}">{{ city }}</option>
-                            {% for city in cities %}
-                            <option>{{ city }}</option>
-                            {% endfor %}
-                          </select>
-                        </div>
-                    </p>
-                    <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+            <form class="form-group" action="/registration_route" method="post">
+                <h4>First name:</h4>
+                {% if not first_name_missing %}
+                <div class="form-group">
+                <input type="text" name="first_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter your first name."
+                       value="{{ first_name }}">
                 </div>
+                {% elif first_name_missing %}
+                <div class="form-group has-error">
+                    <input type="text" name="first_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter only letters, and start with a capital one."
+                           value="{{ first_name }}">
+                    <span class="help-block">First name missing or in invalid format.</span>
+                </div>
+                {% endif %}
+                <h4>Last name:</h4>
+                {% if not last_name_missing %}
+                <div class="form-group">
+                <input type="text" name="last_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter your last name."
+                       value="{{ last_name }}">
+                </div>
+                {% elif last_name_missing %}
+                <div class="form-group has-error">
+                    <input type="text" name="last_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter only letters, and start with a capital one."
+                           value="{{ last_name }}">
+                    <span class="help-block">Last name missing or in invalid format.</span>
+                </div>
+                {% endif %}
+                <h4>E-mail address:</h4>
+                {% if not email_missing %}
+                <div class="form-group">
+                <input type="email" name="email" class="form-control" title="Unique email required."  placeholder="Enter your email address."
+                value="{{ email }}">
+                </div>
+                {% elif email_missing %}
+                <div class="form-group has-error">
+                    <input type="email" name="email" class="form-control" title="Unique email required.">
+                    <span class="help-block">E-mail address missing or in invalid format.</span>
+                </div>
+                {% elif email_exists_error %}
+                <div class="form-group has-error">
+                    <input type="email" name="email" class="form-control" title="Unique email required."  placeholder="{{ email }}">
+                    <span class="help-block">Email address already exists in database.</span>
+                </div>
+                {% endif %}
+                <h4>City you currently live in:</h4>
+                {% if not city_missing %}
+                <div class="form-group">
+                  <select name="city" class="form-control">
+                    <option selected value="{{ city }}">{{ city }}</option>
+                    {% for city in cities %}
+                    <option>{{ city }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                {% elif city_missing %}
+                <div class="form-group has-error">
+                  <select name="city" class="form-control">
+                    <option selected value="{{ city }}">{{ city }}</option>
+                    {% for city in cities %}
+                    <option>{{ city }}</option>
+                    {% endfor %}
+                  </select>
+                  <span class="help-block">You must select a city.</span>
+                </div>
+                {% endif %}
+                <input type="submit" class="btn btn-primary" value="Submit">
             </form>
         </div>
     </body>
