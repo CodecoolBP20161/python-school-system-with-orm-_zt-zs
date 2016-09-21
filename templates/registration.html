@@ -77,17 +77,17 @@
                 <h4>E-mail address:</h4>
                 {% if email_exists_error %}
                 <div class="form-group has-error">
-                    <input type="email" name="email" class="form-control" title="Unique email required."  placeholder="{{ email }}">
+                    <input type="email" name="email" class="form-control" placeholder="{{ email }}">
                     <span class="help-block">Email address already exists in database.</span>
                 </div>
                 {% elif not email_missing %}
                 <div class="form-group">
-                <input type="email" name="email" class="form-control" title="Unique email required."  placeholder="Enter your email address."
+                <input type="email" name="email" class="form-control" placeholder="Enter your email address."
                 value="{{ email }}">
                 </div>
                 {% elif email_missing %}
                 <div class="form-group has-error">
-                    <input type="email" name="email" class="form-control" title="Unique email required.">
+                    <input type="email" name="email" class="form-control">
                     <span class="help-block">E-mail address missing or in invalid format.</span>
                 </div>
                 {% endif %}
