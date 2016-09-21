@@ -11,3 +11,9 @@ body, navbar {
 .navbar-brand {
     padding: 10px;
 }
+.logo-bar {
+    margin: 100px auto 50px;
+}
+h2 {
+    line-height: 150%;
+}
