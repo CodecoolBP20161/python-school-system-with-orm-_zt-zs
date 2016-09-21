@@ -24,19 +24,20 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/"> <span class="glyphicon glyphicon-home"></span>  Home</a></li>
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
                 <li><a href="/registration_route">Registration</a></li>
                 <li><a href="/info">Info</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                    <li><a href="#"> <span class="glyphicon glyphicon-log-in"> </span>  Login</a></li>
+                    <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
                 {% else %}
-                    <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i></li>
+                    <li><i class="fa fa-user"
+                           aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
+                    </li>
                     <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li class="active"><a href="/contact">Contact</a></li>
-
             </ul>
         </div>
     </div>
@@ -46,28 +47,24 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="container-fluid">
-
-
             <br>
-            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%" alt="Codecool">
-
-
+            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%"
+                 alt="Codecool">
             <h1>Find Us</h1>
-  <ul class="list-group">
-                        <li class="list-group-item"><i class="fa fa-desktop" aria-hidden="true"></i> http://www.codecool.hu</li>
-                        <li class="list-group-item"><span class="glyphicon glyphicon-map-marker"></span> 1065 Budapest, Nagymező utca 44.</li>
-                        <li class="list-group-item"><i class="fa fa-facebook-square" aria-hidden="true"></i> http://www.facebook.com/CodecoolOfficial/</li>
-                        <li class="list-group-item"><span class="glyphicon glyphicon-phone"></span> +36 70 944-3402</li>
-                        <li class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> hello@codecool.com</li>
-                    </ul>
-                </div>
+            <ul class="list-group">
+                <li class="list-group-item"><i class="fa fa-desktop" aria-hidden="true"></i> http://www.codecool.hu</li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-map-marker"></span> 1065 Budapest, Nagymező
+                    utca 44.
+                </li>
+                <li class="list-group-item"><i class="fa fa-facebook-square" aria-hidden="true"></i>
+                    http://www.facebook.com/CodecoolOfficial/
+                </li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-phone"></span> +36 70 944-3402</li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> hello@codecool.com</li>
+            </ul>
         </div>
     </div>
-
-
-    <div class="col-sm-2"></div>
-
+</div>
+<div class="col-sm-2"></div>
 </body>
-
-
 </html>
