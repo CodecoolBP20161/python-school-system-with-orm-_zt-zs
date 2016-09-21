@@ -30,13 +30,14 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                <li class="active"><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a>
-                </li>
-                {% else %}
-                    <li><i class="fa fa-user"
-                           aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
+                    <li class="active"><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"></span>
+                        Login</a>
                     </li>
-                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                {% else %}
+                    <li class="active"><i class="fa fa-user"
+                                          aria-hidden="true"></i> Hello, {{ mentor }}!
+                    </li>
+                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
             </ul>
@@ -47,36 +48,32 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8 text-left">
         <div class="container-fluid">
-            <div class="logo-bar text-center"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
-                                       alt="Codecool"></div>
+            <div class="logo-bar text-center"><img src="{{ url_for('static', filename='logo-large.png') }}"
+                                                   class="center-block "
+                                                   alt="Codecool"></div>
             <form action="/mentor/login" method='post'>
-
                 <label for="email">Email address:</label>
-
                 {% if not email_error %}
-                <div class="form-group">
-                    <input type="email" class="form-control" id="email" name="email" required value="{{ email }}">
-                </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" name="email" required value="{{ email }}">
+                    </div>
                 {% elif email_error %}
-                <div class="form-group has-error">
-                                        <input type="email" class="form-control" id="email" name="email" required value="{{ email }}">
-                    <span class="help-block">Invalid email.</span>
-                </div>
+                    <div class="form-group has-error">
+                        <input type="email" class="form-control" id="email" name="email" required value="{{ email }}">
+                        <span class="help-block">Invalid email.</span>
+                    </div>
                 {% endif %}
-
-
                 <label for="pwd">Password:</label>
                 {% if not pwd_error %}
-                <div class="form-group">
-                    <input type="password" class="form-control" id="pwd" name="pwd" required value="{{ pwd }}">
-                </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="pwd" name="pwd" required value="{{ pwd }}">
+                    </div>
                 {% elif pwd_error %}
-                <div class="form-group has-error">
-                    <input type="password" class="form-control" id="pwd" name="pwd" required value="{{ pwd }}">
-                    <span class="help-block">Wrong password.</span>
-                </div>
+                    <div class="form-group has-error">
+                        <input type="password" class="form-control" id="pwd" name="pwd" required value="{{ pwd }}">
+                        <span class="help-block">Wrong password.</span>
+                    </div>
                 {% endif %}
-
                 <div class="checkbox">
                     <label><input type="checkbox" name="remember"> Remember me</label>
                 </div>

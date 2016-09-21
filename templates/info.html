@@ -18,7 +18,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img class="center-block" src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool"
+            <a class="navbar-brand" href="/"><img class="center-block"
+                                                  src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool"
                                                   width="30px" height="30px"></a></div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -28,12 +29,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                <li><a href="/mentor/login"><span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                    <li><a href="/mentor/login"><span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
                 {% else %}
-                    <li><i class="fa fa-user"
-                           aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
+                    <li class="active"><i class="fa fa-user"
+                                          aria-hidden="true"></i> Hello, {{ mentor }}!
                     </li>
-                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
             </ul>
