@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html style="text-align: center;">
 <head>
-    <title>Welcome</title>
-    <meta charset="utf-8">
+    <html lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
-</head>
+    <title>Login</title>
+    </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -30,28 +29,35 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                    <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                    <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
                 {% else %}
-                    <li class="active"><i class="fa fa-user" aria-hidden="true"></i>
-                        Hello, {{ mentor.first_name, mentor.last_name }}!</i></li>
-                    <li class="active"><a href="/"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li class="active"><i class="fa fa-user"
+                                          aria-hidden="true"></i> Hello, {{ mentor }}!
+                    </li>
+                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
-
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
-
     <div class="col-sm-2"></div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 text-center">
         <div class="container-fluid">
-
-            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%"
-                 alt="Codecool">
-            <div class="col-sm-2"></div>
-
+            <div class="logo-bar text-center"><img src="{{ url_for('static', filename='logo-large.png') }}"
+                                                   class="center-block "
+                                                   alt="Codecool"></div>
+            <div class="container-fluid center-block">
+                <h2>You have successfully registered.</h2>
+                <h2>We'll send you an email with infos soon. Stay tuned!</h2>
+                <br>
+                <a href="/" class="btn btn-success btn-lg" role="button"> OK </a>
+            </div>
         </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
 </body>
 </html>

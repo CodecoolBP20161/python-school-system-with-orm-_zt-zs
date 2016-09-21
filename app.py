@@ -32,19 +32,26 @@ def after_request(response):
     return response
 
 
-@app.route('/')
-def main():
+def check_login():
     if session['logged_in'] is True:
         mentor = session['name']
     else:
         mentor = None
-    return render_template('index.html', mentor = mentor, logged_in = session['logged_in'])
+    return mentor
+
+
+@app.route('/')
+def main():
+    mentor = check_login()
+    return render_template('index.html', mentor=mentor, logged_in=session['logged_in'])
 
 
 @app.route('/registration_route', methods=['GET'])
 def registrate_begin():
     cities_to_display = get_cities()
-    return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, logged_in=session['logged_in'], mentor=session['name'])
+    mentor = check_login()
+    return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, logged_in=session['logged_in'],
+                           mentor=mentor)
 
 
 def get_cities():
@@ -56,6 +63,7 @@ def get_cities():
 
 @app.route('/registration_route', methods=['POST'])
 def validate_registration():
+    mentor = check_login()
     cities_to_display = get_cities()
     if (request.method == 'POST' and request.form["first_name"] and request.form["last_name"] and
             request.form["email"] and request.form["city"]):
@@ -67,7 +75,8 @@ def validate_registration():
             email_exists_error = True
             return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email="Enter another email address",
                                    first_name=request.form["first_name"], last_name=request.form["last_name"],
-                                   city=request.form["city"], email_exists_error=email_exists_error, logged_in=session['logged_in'], mentor=session['name'])
+                                   city=request.form["city"], email_exists_error=email_exists_error,
+                                   logged_in=session['logged_in'], mentor=mentor)
     else:
         first_name_missing, last_name_missing, email_missing, city_missing = False, False, False, False
         if not request.form["first_name"]:
@@ -82,13 +91,20 @@ def validate_registration():
                                first_name=request.form["first_name"], last_name=request.form["last_name"],
                                city=request.form["city"], first_name_missing=first_name_missing,
                                last_name_missing=last_name_missing, email_missing=email_missing,
-                               city_missing=city_missing, logged_in=session['logged_in'], mentor=session['name'])
-    return redirect('/')
+                               city_missing=city_missing, logged_in=session['logged_in'], mentor=mentor)
+    return redirect('/successful_reg')
+
+
+@app.route('/successful_reg', methods=['GET'])
+def successful_reg():
+    mentor = check_login()
+    return render_template("success_reg.html", logged_in=session['logged_in'], mentor=mentor)
 
 
 @app.route('/info', methods=['GET'])
 def display_infos():
-    return render_template("info.html", logged_in=session['logged_in'], mentor=session['name'])
+    mentor = check_login()
+    return render_template("info.html", logged_in=session['logged_in'], mentor=mentor)
 
 
 @app.route('/mentor/login', methods=['GET'])
@@ -105,23 +121,26 @@ def mentor_login():
             mentor = Mentor.get(Mentor.email == request.form['email'])
         except:
             email_error = True
-            return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email=request.form['email'])
+            return render_template('login.html', email_error=email_error, pwd_error=pwd_error,
+                                   email=request.form['email'])
         if mentor:
             if not request.form['pwd'] == mentor.password:
                 pwd_error = True
-                return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email=request.form['email'])
+                return render_template('login.html', email_error=email_error, pwd_error=pwd_error,
+                                       email=request.form['email'])
             else:
                 session['logged_in'] = True
                 session['mentor_id'] = mentor.id
                 session['name'] = mentor.first_name
                 return redirect('/success')
-
-    # return redirect('/')
     return render_template("index.html")
+
 
 @app.route('/success', methods=['GET'])
 def successful_mentor_login():
-    return render_template("success_mentor_login.html", logged_in=session['logged_in'], mentor=session['name'])
+    mentor = check_login()
+    return render_template("success_mentor_login.html", logged_in=session['logged_in'], mentor=mentor)
+
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -133,7 +152,8 @@ def logout():
 
 @app.route('/contact', methods=['GET'])
 def contacting():
-    return render_template("contact.html", logged_in=session['logged_in'], mentor=session['name'])
+    mentor = check_login()
+    return render_template("contact.html", logged_in=session['logged_in'], mentor=mentor)
 
 
 if __name__ == '__main__':

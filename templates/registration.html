@@ -25,22 +25,23 @@
                                                   width="30px" height="30px"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-                  <ul class="nav navbar-nav">
-                    <li ><a href="/"> <span class="glyphicon glyphicon-home"> Home</span></a></li>
-                    <li class="active"><a href="/registration_route">Registration</a></li>
-                    <li><a href="/info">Info</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if not logged_in %}
-                            <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> Login</span></a></li>
-                        {% else %}
+            <ul class="nav navbar-nav">
+                <li><a href="/"> <span class="glyphicon glyphicon-home"> Home</span></a></li>
+                <li class="active"><a href="/registration_route">Registration</a></li>
+                <li><a href="/info">Info</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not logged_in %}
+                    <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> Login</span></a></li>
+                {% else %}
                     <li class="active"><i class="fa fa-user"
-                           aria-hidden="true"></i> Hello, {{ mentor }}!</li>
-                       <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                                          aria-hidden="true"></i> Hello, {{ mentor }}!
+                    </li>
+                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 {% endif %}
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </div>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="container">
@@ -52,77 +53,78 @@
             </div>
             <form class="form-group text-left reg" action="/registration_route" method="post">
                 {% if not first_name_missing %}
-                <div class="form-group">
-                    <label for="fname">First name:</label>
-                    <input type="text" name="first_name" id="fname" class="form-control" pattern="(^([^0-9]*)$)"
-                           placeholder="Enter your first name."
-                           value="{{ first_name }}">
-                </div>
+                    <div class="form-group">
+                        <label for="fname">First name:</label>
+                        <input type="text" name="first_name" id="fname" class="form-control" pattern="(^([^0-9]*)$)"
+                               placeholder="Enter your first name."
+                               value="{{ first_name }}">
+                    </div>
                 {% elif first_name_missing %}
-                <div class="form-group has-error">
-                    <label for="fname_mis">First name:</label>
-                    <input type="text" name="first_name" id="fname_mis" class="form-control" pattern="(^([^0-9]*)$)"
-                           placeholder="Enter only letters, and start with a capital one."
-                           value="{{ first_name }}">
-                    <span class="help-block">First name missing or in invalid format.</span>
-                </div>
+                    <div class="form-group has-error">
+                        <label for="fname_mis">First name:</label>
+                        <input type="text" name="first_name" id="fname_mis" class="form-control" pattern="(^([^0-9]*)$)"
+                               placeholder="Enter only letters, and start with a capital one."
+                               value="{{ first_name }}">
+                        <span class="help-block">First name missing or in invalid format.</span>
+                    </div>
                 {% endif %}
                 {% if not last_name_missing %}
-                <div class="form-group">
-                    <label for="lname">Last name:</label>
-                    <input type="text" name="last_name" id="lname" class="form-control" pattern="(^([^0-9]*)$)"
-                           placeholder="Enter your last name."
-                           value="{{ last_name }}">
-                </div>
+                    <div class="form-group">
+                        <label for="lname">Last name:</label>
+                        <input type="text" name="last_name" id="lname" class="form-control" pattern="(^([^0-9]*)$)"
+                               placeholder="Enter your last name."
+                               value="{{ last_name }}">
+                    </div>
                 {% elif last_name_missing %}
-                <div class="form-group has-error">
-                    <label for="lname_mis">E-mail address:</label>
-                    <input type="text" name="last_name" id="lname_mis" class="form-control" pattern="(^([^0-9]*)$)"
-                           placeholder="Enter only letters, and start with a capital one."
-                           value="{{ last_name }}">
-                    <span class="help-block">Last name missing or in invalid format.</span>
-                </div>
+                    <div class="form-group has-error">
+                        <label for="lname_mis">E-mail address:</label>
+                        <input type="text" name="last_name" id="lname_mis" class="form-control" pattern="(^([^0-9]*)$)"
+                               placeholder="Enter only letters, and start with a capital one."
+                               value="{{ last_name }}">
+                        <span class="help-block">Last name missing or in invalid format.</span>
+                    </div>
                 {% endif %}
                 {% if email_exists_error %}
-                <div class="form-group has-error">
-                    <label for="email_err">E-mail address:</label>
-                    <input type="email" name="email" id="email_err" class="form-control" placeholder="{{ email }}">
-                    <span class="help-block">Email address already exists in database.</span>
-                </div>
+                    <div class="form-group has-error">
+                        <label for="email_err">E-mail address:</label>
+                        <input type="email" name="email" id="email_err" class="form-control" placeholder="{{ email }}">
+                        <span class="help-block">Email address already exists in database.</span>
+                    </div>
                 {% elif not email_missing %}
-                <div class="form-group">
-                    <label for="email">E-mail address:</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email address."
-                           value="{{ email }}">
-                </div>
+                    <div class="form-group">
+                        <label for="email">E-mail address:</label>
+                        <input type="email" name="email" id="email" class="form-control"
+                               placeholder="Enter your email address."
+                               value="{{ email }}">
+                    </div>
                 {% elif email_missing %}
-                <div class="form-group has-error">
-                    <label for="email_mis">E-mail address:</label>
-                    <input type="email" name="email" id="email_mis" class="form-control">
-                    <span class="help-block">E-mail address missing or in invalid format.</span>
-                </div>
+                    <div class="form-group has-error">
+                        <label for="email_mis">E-mail address:</label>
+                        <input type="email" name="email" id="email_mis" class="form-control">
+                        <span class="help-block">E-mail address missing or in invalid format.</span>
+                    </div>
                 {% endif %}
                 {% if not city_missing %}
-                <div class="form-group">
-                    <label for="city">City you currently live in:</label>
-                    <select name="city" id="city" class="form-control">
-                        <option selected value="{{ city }}">{{ city }}</option>
-                        {% for city in cities %}
-                        <option>{{ city }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label for="city">City you currently live in:</label>
+                        <select name="city" id="city" class="form-control">
+                            <option selected value="{{ city }}">{{ city }}</option>
+                            {% for city in cities %}
+                                <option>{{ city }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 {% elif city_missing %}
-                <div class="form-group has-error">
-                    <label for="city_mis">City you currently live in:</label>
-                    <select name="city" id="city_mis" class="form-control">
-                        <option selected value="{{ city }}">{{ city }}</option>
-                        {% for city in cities %}
-                        <option>{{ city }}</option>
-                        {% endfor %}
-                    </select>
-                    <span class="help-block">You must select a city.</span>
-                </div>
+                    <div class="form-group has-error">
+                        <label for="city_mis">City you currently live in:</label>
+                        <select name="city" id="city_mis" class="form-control">
+                            <option selected value="{{ city }}">{{ city }}</option>
+                            {% for city in cities %}
+                                <option>{{ city }}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="help-block">You must select a city.</span>
+                    </div>
                 {% endif %}
                 <input type="submit" class="btn btn-primary" value="Submit">
             </form>
