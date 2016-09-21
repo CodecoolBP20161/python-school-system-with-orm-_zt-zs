@@ -2,13 +2,22 @@ from flask import *
 from models import *
 import requests
 import sys
+import os
 
 TEMPLATE_REGISTRATION = 'registration.html'
 
-DEBUG = False
+DEBUG = True
 
 app = Flask(__name__, static_folder='images')
 app.config.from_object(__name__)
+
+app.config.update(dict(
+    DATABASE=os.path.join(app.root_path, 'cickib.db'),
+    SECRET_KEY='dev',
+    USERNAME='cickib',
+    PASSWORD='zsiroskenyer'
+))
+app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
 
 @app.before_request
@@ -25,7 +34,13 @@ def after_request(response):
 
 @app.route('/')
 def main():
-    return render_template('index.html')
+    print(session)
+
+    if session['logged_in'] is True:
+        mentor = session['name']
+    else:
+        mentor = None
+    return render_template('index.html', mentor = mentor, logged_in = session['logged_in'])
 
 
 @app.route('/registration_route', methods=['GET'])
@@ -68,44 +83,37 @@ def display_infos():
     return render_template("info.html")
 
 
-@app.route('/mentor/login', methods=['GET', 'POST'])
+@app.route('/mentor/login', methods=['GET'])
+def mentor_login_begin():
+    return render_template("login.html")
+
+
+@app.route('/mentor/login', methods=['POST'])
 def mentor_login():
-    mentors = Mentor.select()
-    error = None
+    pwd_error = None
+    email_error = None
     if request.method == 'POST':
-        for mentor in mentors:
-            if request.form['email'] != mentor.email:
-                error = 'Invalid username'
-            elif request.form['pwd'] != mentor.password:
-                error = 'Invalid password'
-            else:
-                session['logged_in'] = True
-                flash('You were logged in')
-                return redirect(url_for('/'))
-
-    return render_template('login.html', error=error)
-
-
-from functools import wraps
-from flask import g, request, redirect, url_for
+        try:
+            mentor = Mentor.get(Mentor.email == request.form['email'])
+        except:
+            email_error = True
+            return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email="Invalid email.")
+        if mentor:
+            if not request.form['pwd'] == mentor.password:
+                pwd_error = True
+            return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email=request.form['email'])
+        session['logged_in'] = True
+        session['mentor_id'] = mentor.id
+        session['name'] = mentor.first_name
+    return redirect('/')
 
 
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if g.user is None:
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-
-    return decorated_function
-
-
-# @login_required
-@app.route('/test', methods=['GET', 'POST'])
-def test_login():
-    mentors = Mentor.select().get()
-    logged_in = True
-    return render_template("test.html", logged_in='logged_in', mentor="mentors")
+@app.route('/logout')
+def logout():
+    session.pop('name', None)
+    session.pop('mentor_id', None)
+    # session['logged_in'] = False
+    return render_template('index.html')
 
 
 @app.route('/contact', methods=['GET'])

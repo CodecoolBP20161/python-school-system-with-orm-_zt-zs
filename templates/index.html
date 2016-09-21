@@ -30,12 +30,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                    <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                    <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
                 {% else %}
                     <li><i class="fa fa-user"
-                           aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
+                           aria-hidden="true"></i>Hello, {{ mentor }}!</i>
                     </li>
-                    <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
 

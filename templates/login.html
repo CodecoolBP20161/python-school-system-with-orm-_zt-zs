@@ -33,7 +33,7 @@
                     <li><i class="fa fa-user"
                            aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
                     </li>
-                    <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
 
@@ -48,17 +48,40 @@
         <div class="container-fluid">
             <div class="text-center"><img src="../images/logo-large.png" height="35" width="300"></div>
             <br><br>
-            <form>
+            <form action="/mentor/login" method='post'>
                 <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" class="form-control" id="email">
+
+                <label for="email">Email address:</label>
+
+                {% if not email_error %}
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" name="email" required value="{{ email }}">
+                </div>
+                {% elif email_error %}
+                <div class="form-group has-error">
+                                        <input type="email" class="form-control" id="email" name="email" required value="{{ email }}">
+                    <span class="help-block">Invalid email.</span>
+                </div>
+                {% endif %}
+
+
+
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd">
+                    {% if not pwd_error %}
+                <div class="form-group">
+                    <input type="password" class="form-control" id="pwd" name="pwd" required value="{{ pwd }}">
                 </div>
+                {% elif pwd_error %}
+                <div class="form-group has-error">
+                    <input type="password" class="form-control" id="pwd" name="pwd" required value="{{ pwd }}">
+                    <span class="help-block">Wrong password.</span>
+                </div>
+                {% endif %}
+
                 <div class="checkbox">
-                    <label><input type="checkbox"> Remember me</label>
+                    <label><input type="checkbox" name="remind"> Remember me</label>
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
 
