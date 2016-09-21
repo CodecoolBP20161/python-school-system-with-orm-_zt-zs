@@ -34,8 +34,6 @@ def after_request(response):
 
 @app.route('/')
 def main():
-    print(session)
-
     if session['logged_in'] is True:
         mentor = session['name']
     else:
@@ -66,15 +64,25 @@ def validate_registration():
                              email=request.form["email"], city=request.form["city"])
 
         except IntegrityError:
-            error_message = "email already exists"
-            return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email=error_message,
+            email_exists_error = True
+            return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email="Enter another email address",
                                    first_name=request.form["first_name"], last_name=request.form["last_name"],
-                                   city=request.form["city"])
+                                   city=request.form["city"], email_exists_error=email_exists_error)
     else:
-        error = True
+        first_name_missing, last_name_missing, email_missing, city_missing = False, False, False, False
+        if not request.form["first_name"]:
+            first_name_missing = True
+        if not request.form["last_name"]:
+            last_name_missing = True
+        if not request.form["email"]:
+            email_missing = True
+        if not request.form["city"]:
+            city_missing = True
         return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email=request.form["email"],
                                first_name=request.form["first_name"], last_name=request.form["last_name"],
-                               city=request.form["city"], error=error)
+                               city=request.form["city"], first_name_missing=first_name_missing,
+                               last_name_missing=last_name_missing, email_missing=email_missing,
+                               city_missing=city_missing)
     return redirect('/')
 
 
@@ -97,23 +105,30 @@ def mentor_login():
             mentor = Mentor.get(Mentor.email == request.form['email'])
         except:
             email_error = True
-            return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email="Invalid email.")
+            return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email=request.form['email'])
         if mentor:
             if not request.form['pwd'] == mentor.password:
                 pwd_error = True
-            return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email=request.form['email'])
-        session['logged_in'] = True
-        session['mentor_id'] = mentor.id
-        session['name'] = mentor.first_name
-    return redirect('/')
+                return render_template('login.html', email_error=email_error, pwd_error=pwd_error, email=request.form['email'])
+            else:
+                session['logged_in'] = True
+                session['mentor_id'] = mentor.id
+                session['name'] = mentor.first_name
+                return redirect('/success')
 
+    # return redirect('/')
+    return render_template("index.html")
+
+@app.route('/success')
+def successful_mentor_login():
+    return render_template("success.html", logged_in=session['logged_in'], name=session['name'])
 
 @app.route('/logout')
 def logout():
     session.pop('name', None)
     session.pop('mentor_id', None)
-    # session['logged_in'] = False
-    return render_template('index.html')
+    session['logged_in'] = False
+    return redirect('/')
 
 
 @app.route('/contact', methods=['GET'])

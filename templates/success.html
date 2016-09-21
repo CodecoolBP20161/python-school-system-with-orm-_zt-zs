@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html style="text-align: center;">
 <head>
-    <title>Welcome</title>
-    <meta charset="utf-8">
+    <html lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
-</head>
+    <title>Login</title>
+    </head>
 <body>
 <nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
@@ -24,18 +23,18 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
                 <li><a href="/registration_route">Registration</a></li>
                 <li><a href="/info">Info</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                    <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
                 {% else %}
-                    <li><i class="fa fa-user"
-                           aria-hidden="true"></i>Hello, {{ mentor }}!</i>
-                    </li>
-                    <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    <li class="active"><i class="fa fa-user"
+                           aria-hidden="true"></i> Hello, {{ name }}!</li>
+                       <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
             </ul>
@@ -44,18 +43,21 @@
 </nav>
 <div class="container">
     <div class="col-sm-2"></div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 text-center">
         <div class="container-fluid">
-            <div class="logo-bar"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
+            <div class="logo-bar text-center"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
                                        alt="Codecool"></div>
-            <h2>Dear applicant,<br>
-                You can register <a href="/registration_route">here</a> to become an awesome codecooler like him:
-            </h2>
-            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="75%" height="90%" alt="handsome">
-            <p>(I'm sorry, but you can't be so handsome like him :/)</p>
+        <div class="container-fluid center-block">
+            {% if logged_in %}
+            <h2>You have successfully logged in as {{ name }}.</h2>
+            {% endif %}
+          <a href="/" class="btn btn-success btn-lg" role="button"> OK </a>
+        </div>
+
         </div>
     </div>
     <div class="col-sm-2"></div>
 </div>
 </body>
 </html>
+
