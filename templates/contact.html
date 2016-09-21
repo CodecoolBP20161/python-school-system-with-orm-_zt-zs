@@ -33,23 +33,19 @@
                     <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
                 {% else %}
                     <li><i class="fa fa-user"
-                           aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
+                           aria-hidden="true"></i>Hello, {{ mentor }}!</i>
                     </li>
-                    <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    <li><a href="/"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li class="active"><a href="/contact">Contact</a></li>
-
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
-
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="container-fluid">
-
-
             <br>
             <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%"
                  alt="Codecool">
@@ -64,11 +60,6 @@
                 </div>
         </div>
     </div>
-
-
     <div class="col-sm-2"></div>
-
 </body>
-
-
 </html>
