@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="text-align: center;">
 <head>
-    <title>Registration</title>
+    <title>Contact</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -32,10 +32,9 @@
                 {% if not logged_in %}
                     <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
                 {% else %}
-                    <li><i class="fa fa-user"
-                           aria-hidden="true"></i>Hello, {{ mentor }}!</i>
-                    </li>
-                    <li><a href="/"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    <li class="active"><i class="fa fa-user"
+                           aria-hidden="true"></i> Hello, {{ mentor }}!</li>
+                       <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li class="active"><a href="/contact">Contact</a></li>
             </ul>

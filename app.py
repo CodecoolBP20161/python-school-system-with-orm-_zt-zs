@@ -44,7 +44,7 @@ def main():
 @app.route('/registration_route', methods=['GET'])
 def registrate_begin():
     cities_to_display = get_cities()
-    return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display)
+    return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, logged_in=session['logged_in'], mentor=session['name'])
 
 
 def get_cities():
@@ -67,7 +67,7 @@ def validate_registration():
             email_exists_error = True
             return render_template(TEMPLATE_REGISTRATION, cities=cities_to_display, email="Enter another email address",
                                    first_name=request.form["first_name"], last_name=request.form["last_name"],
-                                   city=request.form["city"], email_exists_error=email_exists_error)
+                                   city=request.form["city"], email_exists_error=email_exists_error, logged_in=session['logged_in'], mentor=session['name'])
     else:
         first_name_missing, last_name_missing, email_missing, city_missing = False, False, False, False
         if not request.form["first_name"]:
@@ -82,13 +82,13 @@ def validate_registration():
                                first_name=request.form["first_name"], last_name=request.form["last_name"],
                                city=request.form["city"], first_name_missing=first_name_missing,
                                last_name_missing=last_name_missing, email_missing=email_missing,
-                               city_missing=city_missing)
+                               city_missing=city_missing, logged_in=session['logged_in'], mentor=session['name'])
     return redirect('/')
 
 
 @app.route('/info', methods=['GET'])
 def display_infos():
-    return render_template("info.html")
+    return render_template("info.html", logged_in=session['logged_in'], mentor=session['name'])
 
 
 @app.route('/mentor/login', methods=['GET'])
@@ -119,11 +119,11 @@ def mentor_login():
     # return redirect('/')
     return render_template("index.html")
 
-@app.route('/success')
+@app.route('/success', methods=['GET'])
 def successful_mentor_login():
-    return render_template("success.html", logged_in=session['logged_in'], name=session['name'])
+    return render_template("success_mentor_login.html", logged_in=session['logged_in'], mentor=session['name'])
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET'])
 def logout():
     session.pop('name', None)
     session.pop('mentor_id', None)
@@ -133,7 +133,7 @@ def logout():
 
 @app.route('/contact', methods=['GET'])
 def contacting():
-    return render_template("contact.html")
+    return render_template("contact.html", logged_in=session['logged_in'], mentor=session['name'])
 
 
 if __name__ == '__main__':
