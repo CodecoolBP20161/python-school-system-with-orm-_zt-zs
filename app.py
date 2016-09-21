@@ -33,6 +33,8 @@ def after_request(response):
 
 
 def check_login():
+    if len(session) == 0:
+        session.update({'logged_in': False})
     if session['logged_in'] is True:
         mentor = session['name']
     else:

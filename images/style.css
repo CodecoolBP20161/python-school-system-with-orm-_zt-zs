@@ -1,25 +1,41 @@
 body, navbar {
     font-family: 'Bitter', serif;
 }
+
 .center-block {
     display: block;
     margin-left: auto;
     margin-right: auto;
- }
-
+}
 
 .navbar-brand {
     padding: 10px;
 }
+
 .logo-bar {
     margin: 100px auto 50px;
 }
+
 h1, h2 {
     line-height: 150%;
 }
-form.login, .reg{
+
+form.login, .reg {
     margin-top: 100px;
 }
-ul.list-group{
+
+ul.list-group {
     margin-top: 50px;
+}
+
+#mentor {
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px 10px;
+}
+
+.fa-user {
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px 5px;
 }

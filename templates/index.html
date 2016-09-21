@@ -8,6 +8,7 @@
     <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="images/style.css">
 </head>
 <body>
 <nav class="navbar navbar-fixed-top">
@@ -32,8 +33,7 @@
                 {% if not logged_in %}
                     <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
                 {% else %}
-                    <li class="active"><i class="fa fa-user"
-                                          aria-hidden="true"></i> Hello, {{ mentor }}!
+                    <li id="mentor" class="active"><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor }}!
                     </li>
                     <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 {% endif %}
