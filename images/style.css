@@ -14,6 +14,12 @@ body, navbar {
 .logo-bar {
     margin: 100px auto 50px;
 }
-h2 {
+h1, h2 {
     line-height: 150%;
+}
+form.login{
+    margin-top: 100px;
+}
+ul.list-group{
+    margin-top: 50px;
 }
