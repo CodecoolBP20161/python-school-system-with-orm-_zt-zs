@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -30,12 +30,11 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 {% else %}
-                <li><i class="fa fa-user"
-                       aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
-                </li>
-                <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!
+                        </i></li>
+                    <li><a href="/"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
             </ul>
@@ -46,15 +45,12 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="container-fluid">
-            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%"
-                 alt="Codecool">
-            <br>
-            <h2>Dear applicant,</h2>
-            <h2>You can register
-                <button type="button" class="btn btn-link btn-lg"><a href="/registration_route">here</a></button>
-                to became an awesome codecooler like him:
+            <div class="logo-bar"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
+                                       alt="Codecool"></div>
+            <h2>Dear applicant,<br>
+                You can register <a href="/registration_route">here</a> to become an awesome codecooler like him:
             </h2>
-            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="50%" height="60%" alt="handsome">
+            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="75%" height="90%" alt="handsome">
             <p>(I'm sorry, but you can't be so handsome like him :/)</p>
         </div>
     </div>
