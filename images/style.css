@@ -1,3 +1,6 @@
+body, navbar {
+    font-family: 'Bitter', serif;
+}
 .center-block {
     display: block;
     margin-left: auto;

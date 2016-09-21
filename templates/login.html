@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html style="text-align: center;">
-<head>
-    <title>Welcome</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<script src="https://use.fontawesome.com/15ab8dce77.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -24,13 +21,14 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
                 <li><a href="/registration_route">Registration</a></li>
                 <li><a href="/info">Info</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                <li class="active"><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> </span>
+                    Login</a></li>
                 {% else %}
                 <li><i class="fa fa-user"
                        aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
@@ -43,22 +41,30 @@
     </div>
 </nav>
 <div class="container">
+
     <div class="col-sm-2"></div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 text-left">
         <div class="container-fluid">
-            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%"
-                 alt="Codecool">
-            <br>
-            <h2>Dear applicant,</h2>
-            <h2>You can register
-                <button type="button" class="btn btn-link btn-lg"><a href="/registration_route">here</a></button>
-                to became an awesome codecooler like him:
-            </h2>
-            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="50%" height="60%" alt="handsome">
-            <p>(I'm sorry, but you can't be so handsome like him :/)</p>
+            <div class="text-center"><img src="../images/logo-large.png" height="35" width="300"></div>
+            <br><br>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd">
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox"> Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
         </div>
     </div>
     <div class="col-sm-2"></div>
 </div>
 </body>
 </html>
+
