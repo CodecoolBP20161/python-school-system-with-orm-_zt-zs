@@ -28,11 +28,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                <li><a href="#"> <span class="glyphicon glyphicon-user"> Login</span></a></li>
+                <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> Login</span></a></li>
                 {% else %}
-                <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
-                </li>
-                <li><a href="/"> <span class="glyphicon glyphicon-log-out"> Logout</span></a></li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i></li>
+                    <li><a href="/"> <span class="glyphicon glyphicon-log-out"> Logout</span></a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
             </ul>
@@ -43,6 +42,8 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="container-fluid">
+            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%"
+                 alt="Codecool">
             <div class="logo-bar"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
                                        height="80%" width="80%" alt="Codecool"></div>
             <br>
@@ -56,5 +57,6 @@
         </div>
     </div>
     <div class="col-sm-2"></div>
+</div>
 </body>
 </html>
