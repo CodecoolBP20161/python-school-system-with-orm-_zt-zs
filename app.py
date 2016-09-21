@@ -147,7 +147,7 @@ def logout():
     session.pop('name', None)
     session.pop('mentor_id', None)
     session['logged_in'] = False
-    return redirect('/')
+    return redirect('/mentor/login')
 
 
 @app.route('/contact', methods=['GET'])
