@@ -9,7 +9,7 @@
     <title>Login</title>
     </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -29,8 +29,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                <li class="active"><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> </span>
-                    Login</a></li>
+                <li class="active"><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
                 {% else %}
                     <li><i class="fa fa-user"
                            aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
@@ -43,12 +43,11 @@
     </div>
 </nav>
 <div class="container">
-
     <div class="col-sm-2"></div>
     <div class="col-sm-8 text-left">
         <div class="container-fluid">
-            <div class="text-center"><img src="../images/logo-large.png" height="35" width="300"></div>
-            <br><br>
+            <div class="logo-bar text-center"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
+                                       alt="Codecool"></div>
             <form action="/mentor/login" method='post'>
 
                 <label for="email">Email address:</label>
@@ -81,9 +80,6 @@
                     <label><input type="checkbox" name="remind"> Remember me</label>
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
-</div>
-
-
             </form>
         </div>
     </div>

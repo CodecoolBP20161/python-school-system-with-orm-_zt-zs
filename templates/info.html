@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -18,8 +18,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img class="center-block"
-                                                  src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool" width="30px" height="30px"></a></div>
+            <a class="navbar-brand" href="/"><img class="center-block" src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool"
+                                                  width="30px" height="30px"></a></div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
@@ -28,7 +28,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                <li><a href="/mentor/login"><span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
                 {% else %}
                     <li><i class="fa fa-user"
                            aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
@@ -44,8 +44,8 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="container-fluid">
-            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%"
-                 width="80%">
+            <div class="logo-bar"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
+                                       alt="Codecool"></div>
             <h1>About Us</h1><br><br>
             <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et fringilla turpis.
                 Aenean a magna
@@ -75,5 +75,6 @@
         </div>
     </div>
     <div class="col-sm-2"></div>
+</div>
 </body>
 </html>

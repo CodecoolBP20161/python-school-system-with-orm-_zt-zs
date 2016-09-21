@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -46,9 +46,8 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="container-fluid">
-            <br>
-            <img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block " height="80%" width="80%"
-                 alt="Codecool">
+            <div class="logo-bar"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block"
+                                       alt="Codecool"></div>
             <h1>Find Us</h1>
   <ul class="list-group">
                         <li class="list-group-item"><i class="fa fa-desktop" aria-hidden="true"></i> http://www.codecool.hu</li>
