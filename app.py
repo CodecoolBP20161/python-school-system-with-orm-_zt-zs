@@ -6,7 +6,7 @@ import os
 
 TEMPLATE_REGISTRATION = 'registration.html'
 
-DEBUG = True
+DEBUG = False
 
 app = Flask(__name__, static_folder='images')
 app.config.from_object(__name__)
