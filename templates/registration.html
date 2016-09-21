@@ -1,121 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html style="text-align: center;">
 <head>
-    <title>Registration</title>
+    <title>Welcome</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 </head>
-    <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                    <a class="navbar-brand" href="/"><img class="center-block"
-                                                          src="{{ url_for('static', filename='tr_logo.png') }}"
-                                                          alt="codecool"
-                                                          width="30px" height="30px"></a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                  <ul class="nav navbar-nav">
-                    <li ><a href="/"> <span class="glyphicon glyphicon-home"> Home</span></a></li>
-                    <li class="active"><a href="/registration_route">Registration</a></li>
-                    <li><a href="/info">Info</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if not logged_in %}
-                            <li><a href="#"> <span class="glyphicon glyphicon-user"> Login</span></a></li>
-                        {% else %}
-                            <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i></li>
-                            <li><a href="/"> <span class="glyphicon glyphicon-log-out"> Logout</span></a></li>
-                        {% endif %}
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </div>
+<body>
+<nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img class="center-block"
+                                                  src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool"
+                                                  width="30px" height="30px"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li class="active"><a href="/registration_route">Registration</a></li>
+                <li><a href="/info">Info</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not logged_in %}
+                <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% else %}
+                <li><i class="fa fa-user" aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!
+                    </i></li>
+                <li><a href="/"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                {% endif %}
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="container-fluid">
+            <div class="logo-bar"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block "
+                                       alt="Codecool">
             </div>
-        </nav>
-        <div class="container">
-            <div class="text-align: center">
-                <br>
-                <img src="../images/logo-large.png" height="35" width="300">
-                <h2>REGISTRATION</h2>
-            </div>
-            <form class="form-group" action="/registration_route" method="post">
-                <h4>First name:</h4>
+            <form class="form-group text-left reg" action="/registration_route" method="post">
                 {% if not first_name_missing %}
                 <div class="form-group">
-                <input type="text" name="first_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter your first name."
-                       value="{{ first_name }}">
+                    <label for="fname">First name:</label>
+                    <input type="text" name="first_name" id="fname" class="form-control" pattern="(^([^0-9]*)$)"
+                           placeholder="Enter your first name."
+                           value="{{ first_name }}">
                 </div>
                 {% elif first_name_missing %}
                 <div class="form-group has-error">
-                    <input type="text" name="first_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter only letters, and start with a capital one."
+                    <label for="fname_mis">First name:</label>
+                    <input type="text" name="first_name" id="fname_mis" class="form-control" pattern="(^([^0-9]*)$)"
+                           placeholder="Enter only letters, and start with a capital one."
                            value="{{ first_name }}">
                     <span class="help-block">First name missing or in invalid format.</span>
                 </div>
                 {% endif %}
-                <h4>Last name:</h4>
                 {% if not last_name_missing %}
                 <div class="form-group">
-                <input type="text" name="last_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter your last name."
-                       value="{{ last_name }}">
+                    <label for="lname">Last name:</label>
+                    <input type="text" name="last_name" id="lname" class="form-control" pattern="(^([^0-9]*)$)"
+                           placeholder="Enter your last name."
+                           value="{{ last_name }}">
                 </div>
                 {% elif last_name_missing %}
                 <div class="form-group has-error">
-                    <input type="text" name="last_name" class="form-control" pattern="(^([^0-9]*)$)" placeholder="Enter only letters, and start with a capital one."
+                    <label for="lname_mis">E-mail address:</label>
+                    <input type="text" name="last_name" id="lname_mis" class="form-control" pattern="(^([^0-9]*)$)"
+                           placeholder="Enter only letters, and start with a capital one."
                            value="{{ last_name }}">
                     <span class="help-block">Last name missing or in invalid format.</span>
                 </div>
                 {% endif %}
-                <h4>E-mail address:</h4>
                 {% if email_exists_error %}
                 <div class="form-group has-error">
-                    <input type="email" name="email" class="form-control" placeholder="{{ email }}">
+                    <label for="email_err">E-mail address:</label>
+                    <input type="email" name="email" id="email_err" class="form-control" placeholder="{{ email }}">
                     <span class="help-block">Email address already exists in database.</span>
                 </div>
                 {% elif not email_missing %}
                 <div class="form-group">
-                <input type="email" name="email" class="form-control" placeholder="Enter your email address."
-                value="{{ email }}">
+                    <label for="email">E-mail address:</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email address."
+                           value="{{ email }}">
                 </div>
                 {% elif email_missing %}
                 <div class="form-group has-error">
-                    <input type="email" name="email" class="form-control">
+                    <label for="email_mis">E-mail address:</label>
+                    <input type="email" name="email" id="email_mis" class="form-control">
                     <span class="help-block">E-mail address missing or in invalid format.</span>
                 </div>
                 {% endif %}
-                <h4>City you currently live in:</h4>
                 {% if not city_missing %}
                 <div class="form-group">
-                  <select name="city" class="form-control">
-                    <option selected value="{{ city }}">{{ city }}</option>
-                    {% for city in cities %}
-                    <option>{{ city }}</option>
-                    {% endfor %}
-                  </select>
+                    <label for="city">City you currently live in:</label>
+                    <select name="city" id="city" class="form-control">
+                        <option selected value="{{ city }}">{{ city }}</option>
+                        {% for city in cities %}
+                        <option>{{ city }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 {% elif city_missing %}
                 <div class="form-group has-error">
-                  <select name="city" class="form-control">
-                    <option selected value="{{ city }}">{{ city }}</option>
-                    {% for city in cities %}
-                    <option>{{ city }}</option>
-                    {% endfor %}
-                  </select>
-                  <span class="help-block">You must select a city.</span>
+                    <label for="city_mis">City you currently live in:</label>
+                    <select name="city" id="city_mis" class="form-control">
+                        <option selected value="{{ city }}">{{ city }}</option>
+                        {% for city in cities %}
+                        <option>{{ city }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="help-block">You must select a city.</span>
                 </div>
                 {% endif %}
                 <input type="submit" class="btn btn-primary" value="Submit">
             </form>
         </div>
-    </form>
+    </div>
+    <div class="col-sm-2"></div>
 </div>
 </body>
 </html>
