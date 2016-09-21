@@ -38,6 +38,7 @@
                     <li><a href="/"> < class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
                 {% endif %}
                 <li><a href="/contact">Contact</a></li>
+
             </ul>
         </div>
     </div>
@@ -52,11 +53,8 @@
                  alt="Codecool">
             <br>
             <h2>Dear applicant,</h2>
-            <h2>You can register
-                <button type="button" class="btn btn-link btn-lg"><a href="/registration_route">here</a></button>
-                to became an awesome codecooler like him:
-            </h2>
-            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="50%" height="60%" alt="handsome"</h2>
+            <h2>You can register <button type="button" class="btn btn-link btn-lg"><a href="/registration_route">here</a></button> to became an awesome codecooler like him:</h2>
+            <img src="{{ url_for('static', filename='handsome.JPG') }}" width="50%" height="60%" alt="handsome">
             <p>(I'm sorry, but you can't be so handsome like him :/)</p>
         </div>
     </div>

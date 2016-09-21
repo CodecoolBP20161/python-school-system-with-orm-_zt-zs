@@ -20,16 +20,16 @@
             </button>
             <a class="navbar-brand" href="/"><img class="center-block"
                                                   src="{{ url_for('static', filename='tr_logo.png') }}" alt="codecool"
-                                                  width="30px" height="30px"></a></div>
+                                                  width="30px" height="30px"></a>        </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span>  Home</a></li>
                 <li><a href="/registration_route">Registration</a></li>
                 <li class="active"><a href="/info">Info</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not logged_in %}
-                    <li><a href="mentor/login"> <span class="glyphicon glyphicon-log-in"> </span> Login</a></li>
+                    <li><a href="/mentor/login"> <span class="glyphicon glyphicon-log-in"> </span>  Login</a></li>
                 {% else %}
                     <li><i class="fa fa-user"
                            aria-hidden="true"></i>Hello, {{ mentor.first_name, mentor.last_name }}!</i>
