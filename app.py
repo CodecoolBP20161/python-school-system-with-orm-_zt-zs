@@ -43,7 +43,6 @@ def login_required(f):
             return f(*args, **kwargs)
         except KeyError:
             return redirect(url_for('mentor_login_begin', next=request.url))
-        return f(*args, **kwargs)
     return decorated_function
 
 
