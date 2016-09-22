@@ -4,6 +4,7 @@ import requests
 import sys
 import os
 from functools import wraps
+import datetime
 
 
 TEMPLATE_REGISTRATION = 'registration.html'
@@ -161,9 +162,7 @@ def successful_mentor_login():
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    session.pop('name', None)
-    session.pop('mentor_id', None)
-    session['logged_in'] = False
+    session.clear()
     return redirect('/mentor/login')
 
 
