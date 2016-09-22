@@ -3,6 +3,8 @@ from models import *
 import requests
 import sys
 import os
+from functools import wraps
+
 
 TEMPLATE_REGISTRATION = 'registration.html'
 
@@ -30,6 +32,19 @@ def before_request():
 def after_request(response):
     g.database.close()
     return response
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        try:
+            if session['logged_in'] is None or session['logged_in'] is False:
+                return redirect(url_for('mentor_login_begin', next=request.url))
+            return f(*args, **kwargs)
+        except KeyError:
+            return redirect(url_for('mentor_login_begin', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 def check_login():
@@ -139,6 +154,7 @@ def mentor_login():
 
 
 @app.route('/success', methods=['GET'])
+@login_required
 def successful_mentor_login():
     mentor = check_login()
     return render_template("success_mentor_login.html", logged_in=session['logged_in'], mentor=mentor)
