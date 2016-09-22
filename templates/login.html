@@ -53,7 +53,7 @@
             <div class="logo-bar text-center"><img src="{{ url_for('static', filename='logo-large.png') }}"
                                                    class="center-block "
                                                    alt="Codecool"></div>
-            <form action="/mentor/login" method='post'>
+            <form class="login" action="/mentor/login" method='post'>
                 <label for="email">Email address:</label>
                 {% if not email_error %}
                     <div class="form-group">
