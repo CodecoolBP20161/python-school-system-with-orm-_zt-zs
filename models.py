@@ -207,7 +207,7 @@ class Applicant(BaseModel):
                         applicants = Applicant.select().where(Applicant.interview == interview.id)
                         for a in applicants:
                             print("{} {}, {} {} {}".format(mentor.first_name, mentor.last_name,
-                                                       interview.date, a.first_name, a.last_name))
+                                  interview.date, a.first_name, a.last_name))
 
 
 class Question(BaseModel):
