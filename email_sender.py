@@ -19,7 +19,6 @@ class Email_sender:
                                      applicant.application_code, applicant.status], applicant.email))
         return applicant_datas
 
-
     @classmethod
     def application_body(cls, applicant):
         try:
@@ -33,10 +32,14 @@ class Email_sender:
                         <img src="https://github.com/CodecoolBP20161/python-school-system-with-orm-_zt-zs/blob/email_html/static/cc_logo-large.png?raw=true">
                         <p>Hey u peace of shit loser <strong>{} {}</strong>!</p>
                         <br>
-                        <p>How did u even got the idea to apply to the mighty <strong>Codecool {}</strong>?? Were u out of ur stupid mind?</p>
-                        <p>Ur status is obv '<strong>{}</strong>' . Forget about ur ridiculous name, from now on ur called <strong>{}</strong>.</p>
-                        <p>Get ur shit together, and if u can find some courage in ur meaningless self for once in ur pathetic life,</p>
-                        <p>and if for some unthinkable reason we decide u worth it were gonna send u an interview date later, so u can</p>
+                        <p>How did u even got the idea to apply to the mighty <strong>Codecool {}</strong>?? Were u out\
+                        of ur stupid mind?</p>
+                        <p>Ur status is obv '<strong>{}</strong>' . Forget about ur ridiculous name, from now on ur\
+                        called <strong>{}</strong>.</p>
+                        <p>Get ur shit together, and if u can find some courage in ur meaningless self for once in ur\
+                        pathetic life,</p>
+                        <p>and if for some unthinkable reason we decide u worth it were gonna send u an interview date\
+                        later, so u can</p>
                         <p>show us ur ugly face at <strong>Codecool {}</strong>.</p><br>
                         <br>
                         <p>Until then, continue to waste our precious air for the last time,</p>
