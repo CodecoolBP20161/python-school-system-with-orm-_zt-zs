@@ -26,16 +26,23 @@ kisattila = Applicant.create(first_name="Attila", last_name="Kiss", email="atelo
 jakabanna = Applicant.create(first_name="Anna", last_name="Jakab", email="atelon09+annak_j@gmail.com", city="Miskolc")
 nagyemese = Applicant.create(first_name="Emese", last_name="Nagy", email="atelon09+emesenagy01@gmail.com", city="Eger")
 feketetibor = Applicant.create(first_name="Tibor", last_name="Fekete", email="atelon09+tibif@gmail.com", city="Pécs")
-matheuszzcyl = Applicant.create(first_name="Matheusz", last_name="Zcyl", email="atelon09+zmatheusz@gmail.com", city="Krakow")
-barnajanka = Applicant.create(first_name="Janka", last_name="Barna", email="atelon09+jankab90@gmail.com",  city="Szeged")
+matheuszzcyl = Applicant.create(first_name="Matheusz", last_name="Zcyl", email="atelon09+zmatheusz@gmail.com",
+                                city="Krakow")
+barnajanka = Applicant.create(first_name="Janka", last_name="Barna", email="atelon09+jankab90@gmail.com",
+                              city="Szeged")
 johndoe = Applicant.create(first_name="John", last_name="Doe", email="atelon09+thisismyemail@gmail.com", city="Warsaw")
 
 
-miki = Mentor.create(first_name="Miki", last_name="Beöthy", school=codecool_bp, email="atelon09+miki@gmail.com", password="1234")
-dani = Mentor.create(first_name="Dani", last_name="Salamon", school=codecool_bp, email="atelon09+dani@gmail.com", password="1234")
-tomi = Mentor.create(first_name="Tomi", last_name="Tompa", school=codecool_bp, email="atelon09+tomi@gmail.com", password="1234")
-matheusz = Mentor.create(first_name="Matheusz", last_name="Ostafil", school=codecool_krakow, email="atelon09+matheusz@gmail.com", password="1234")
-attila = Mentor.create(first_name="Attila", last_name="Molnár", school=codecool_miskolc, email="atelon09+attila@gmail.com", password="1234")
+miki = Mentor.create(first_name="Miki", last_name="Beöthy", school=codecool_bp, email="atelon09+miki@gmail.com",
+                     password="1234")
+dani = Mentor.create(first_name="Dani", last_name="Salamon", school=codecool_bp, email="atelon09+dani@gmail.com",
+                     password="1234")
+tomi = Mentor.create(first_name="Tomi", last_name="Tompa", school=codecool_bp, email="atelon09+tomi@gmail.com",
+                     password="1234")
+matheusz = Mentor.create(first_name="Matheusz", last_name="Ostafil", school=codecool_krakow,
+                         email="atelon09+matheusz@gmail.com", password="1234")
+attila = Mentor.create(first_name="Attila", last_name="Molnár", school=codecool_miskolc,
+                       email="atelon09+attila@gmail.com", password="1234")
 
 
 bp_interview = InterviewSlot.create(school=codecool_bp, mentor=miki, date='2016-09-01 10:00')
