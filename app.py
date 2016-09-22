@@ -25,7 +25,7 @@ def after_request(response):
 
 @app.route('/')
 def main():
-    return render_template('index.html')
+    return render_template('temp_index.html')
 
 
 @app.route('/registration_route', methods=['GET'])
@@ -124,4 +124,4 @@ def contacting():
 
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(port=5001, debug=True)

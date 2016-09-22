@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://use.fontawesome.com/15ab8dce77.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><img class="center-block" src="{{ url_for('static',
+                    filename='tr_logo.png') }}" alt="codecool" width="30px" height="30px"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    {% block navbar %}{% endblock %}
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="container-fluid">
+                <div class="logo-bar"><img src="{{ url_for('static', filename='logo-large.png') }}" class="center-block"
+                                           alt="Codecool"></div>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+        </div>
+    </body>
 </html>

@@ -23,3 +23,9 @@ form.login, .reg{
 ul.list-group{
     margin-top: 50px;
 }
+/*#index-main-text{*/
+    /*text-align: center;*/
+/*}*/
+.content {
+    padding: 0px auto;
+}
